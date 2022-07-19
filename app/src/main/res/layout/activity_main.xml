@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search Event"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/wishList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Events Wish List"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/myEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Event List"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/searchCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Browse Categories"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
