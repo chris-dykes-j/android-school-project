@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // add activity.
             }
         });
         // 3. Save the event like a shopping cart (Taeyeon)
