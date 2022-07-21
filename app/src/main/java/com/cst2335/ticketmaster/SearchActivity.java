@@ -6,58 +6,102 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class SearchActivity extends AppCompatActivity {
+
+    private ArrayList<Event> eventList;
+    private EventAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        SearchEvents searchEvents = new SearchEvents();
+        ListView listView = findViewById(R.id.searchEventList);
+        eventList = new ArrayList<>();
+        adapter =  new EventAdapter(eventList, this);
+        listView.setAdapter(adapter);
+
+        EventSearch searchEvents = new EventSearch();
         ImageButton searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(view -> {
-            searchEvents.onPostExecute("https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb");
+            try {
+                searchEvents.execute().get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
     }
 
-    private class SearchEvents extends AsyncTask<String, Integer, String> {
+    private class EventSearch extends AsyncTask<String, String, String> {
+        private String str, receive;
 
         // Get the JSON
         protected String doInBackground(String... args) {
-            String result = "";
+            String strUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb";
+            URL url = null;
             try {
-                URL url = new URL(args[0]);
+                url = new URL(strUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                InputStream response = connection.getInputStream();
-                BufferedReader read = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8); // what is sz?
-                StringBuilder strBuilder = new StringBuilder();
-                String line;
-                while ((line = read.readLine()) != null)
-                    strBuilder.append(line + "\n");
-                result = strBuilder.toString(); // The result from while loop.
+                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+                if (connection.getResponseCode() == connection.HTTP_OK) {
+                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+                    BufferedReader read = new BufferedReader(isr);
+                    StringBuffer buffy = new StringBuffer();
+                    while ((str = read.readLine()) != null)
+                        buffy.append(str + "\n");
+                    receive = buffy.toString();
+                    Log.e("", receive);
+                    read.close();
+                }
+                if (!receive.isEmpty()) {
+                    JSONObject jsonObject = new JSONObject(receive).getJSONObject("_embedded");
+                    JSONArray jsonArray = jsonObject.getJSONArray("events");
+                    // eventList.clear(); // Remove any old data, just in case... may not be needed.
+                    // Log.e("", Integer.toString(jsonArray.length())); Bug fixing, all good now.
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject eventJson = jsonArray.getJSONObject(i);
+                        String eventName = eventJson.getString("name");
+                        String eventUrl = eventJson.getString("url");
+                        String eventImg = eventJson.getJSONArray("images")
+                                .getJSONObject(0)
+                                .getString("url");
+                        String eventGenre = eventJson.getJSONArray("classifications")
+                                .getJSONObject(0)
+                                .getJSONObject("segment")
+                                .getString("name");
+                        Event event = new Event(eventName, eventUrl, eventImg, eventGenre);
+                        eventList.add(event);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("EVENT_SEARCH", result);
-            return result;
+            return "Result";
         }
 
-        protected void onProgressUpdate(Integer progress) {
-
+        protected void onProgressUpdate(String ... progress) {
+            // add to event list
+            // Log.e("SearchActivity")
         }
 
         // Parse the JSON and make visible
         protected void onPostExecute(String result) {
-
+            Log.e("", result);
         }
     }
 }
