@@ -2,6 +2,7 @@ package com.cst2335.ticketmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,12 +20,11 @@ public class MainActivity extends AppCompatActivity {
         btn4 = findViewById(R.id.searchCategories);
 
         // 1. Search events and display list (Chris)
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn1.setOnClickListener(view -> {
+                Intent goToSearch = new Intent(this, SearchActivity.class);
+                startActivity(goToSearch);
+            });
 
-            }
-        });
         // 2. Display favourites events (button to delete favorite city) = wish list (Jeongmi)
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
