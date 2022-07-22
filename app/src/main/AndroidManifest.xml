@@ -19,6 +19,9 @@
             android:name=".Tycart"
             android:exported="false" />
         <activity
+            android:name=".DiActivity"
+            android:exported="false" />
+        <activity
             android:name=".WishList"
             android:exported="false" />
         <activity
