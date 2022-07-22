@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class WishList extends AppCompatActivity {
+    // testtest
     ArrayList<Events> events = new ArrayList<>();
     WishListAdapter wishListAdapter;
 
