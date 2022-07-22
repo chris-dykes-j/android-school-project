@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TicketMaster</string>
+    <string name="wish_title">My Wish List</string>
 </resources>
