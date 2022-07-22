@@ -12,4 +12,6 @@ public class DiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_di);
         //test
     }
+
+    ggggg
 }
