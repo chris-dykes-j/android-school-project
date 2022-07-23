@@ -12,6 +12,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -45,7 +46,7 @@ public class SearchActivity extends AppCompatActivity {
                 eventList = parseJson(searchResult);
                 Log.e(TAG, eventList.get(0).getName()); // Getting data no problem.
                 adapter.updateAdapter(eventList);
-                searchResults.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             } catch (ExecutionException | JSONException | InterruptedException e) {
                 e.printStackTrace();
             }

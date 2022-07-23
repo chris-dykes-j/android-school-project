@@ -2,6 +2,7 @@ package com.cst2335.ticketmaster;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +44,15 @@ public class EventAdapter extends ArrayAdapter {
         convertView = inflater.inflate(R.layout.event_item, parent, false);
         TextView txt = convertView.findViewById(R.id.searchEventTitle);
         Event event = events.get(position);
-        // set parameters, textview etc..
+        Log.e("test", events.toString());
         txt.setText(event.getName());
+        // set parameters, textview etc..
+        // txt.setText(event.getName());
         return convertView;
     }
 
     public void updateAdapter(ArrayList<Event> events) {
         this.events = events;
+        Log.i("test",this.events+"");
     }
 }
