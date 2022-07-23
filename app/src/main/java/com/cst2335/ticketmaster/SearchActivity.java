@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -20,6 +22,7 @@ import java.util.concurrent.ExecutionException;
 
 public class SearchActivity extends AppCompatActivity {
 
+    private static final String TAG = "SearchActivity";
     private ArrayList<Event> eventList;
     private EventAdapter adapter;
 
@@ -28,22 +31,50 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        ListView listView = findViewById(R.id.searchEventList);
         eventList = new ArrayList<>();
-        adapter =  new EventAdapter(eventList, this);
-        listView.setAdapter(adapter);
+        adapter = new EventAdapter(eventList, this);
 
         EventSearch searchEvents = new EventSearch();
         ImageButton searchButton = findViewById(R.id.searchButton);
+        ListView searchResults = findViewById(R.id.searchEventList);
+        searchResults.setAdapter(adapter);
+
         searchButton.setOnClickListener(view -> {
             try {
-                searchEvents.execute().get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+                String searchResult = searchEvents.execute().get();
+                eventList = parseJson(searchResult);
+                Log.e(TAG, eventList.get(0).getName()); // Getting data no problem.
+                adapter.updateAdapter(eventList);
+                searchResults.setAdapter(adapter);
+            } catch (ExecutionException | JSONException | InterruptedException e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    private ArrayList<Event> parseJson(String input) throws JSONException {
+        ArrayList<Event> events = new ArrayList<>();
+        if (!input.isEmpty()) {
+            JSONObject jsonObject = new JSONObject(input).getJSONObject("_embedded");
+            JSONArray jsonArray = jsonObject.getJSONArray("events");
+            // Log.e("", Integer.toString(jsonArray.length())); Bug fixing, all good now.
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Event event;
+                JSONObject eventJson = jsonArray.getJSONObject(i);
+                String eventName = eventJson.getString("name");
+                String eventUrl = eventJson.getString("url");
+                String eventGenre = eventJson.getJSONArray("classifications")
+                        .getJSONObject(0)
+                        .getJSONObject("segment")
+                        .getString("name");
+//                        String eventImg = eventJson.getJSONArray("images")
+//                                .getJSONObject(0)
+//                                .getString("url");
+                event = new Event(eventName, eventUrl, eventGenre);
+                events.add(event);
+            }
+        }
+        return events;
     }
 
     private class EventSearch extends AsyncTask<String, String, String> {
@@ -52,14 +83,14 @@ public class SearchActivity extends AppCompatActivity {
         // Get the JSON
         protected String doInBackground(String... args) {
             String strUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb";
-            URL url = null;
+            URL url;
             try {
                 url = new URL(strUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
                 if (connection.getResponseCode() == connection.HTTP_OK) {
-                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
-                    BufferedReader read = new BufferedReader(isr);
+                    InputStreamReader input = new InputStreamReader(connection.getInputStream());
+                    BufferedReader read = new BufferedReader(input);
                     StringBuffer buffy = new StringBuffer();
                     while ((str = read.readLine()) != null)
                         buffy.append(str + "\n");
@@ -67,41 +98,19 @@ public class SearchActivity extends AppCompatActivity {
                     Log.e("", receive);
                     read.close();
                 }
-                if (!receive.isEmpty()) {
-                    JSONObject jsonObject = new JSONObject(receive).getJSONObject("_embedded");
-                    JSONArray jsonArray = jsonObject.getJSONArray("events");
-                    // eventList.clear(); // Remove any old data, just in case... may not be needed.
-                    // Log.e("", Integer.toString(jsonArray.length())); Bug fixing, all good now.
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject eventJson = jsonArray.getJSONObject(i);
-                        String eventName = eventJson.getString("name");
-                        String eventUrl = eventJson.getString("url");
-                        String eventImg = eventJson.getJSONArray("images")
-                                .getJSONObject(0)
-                                .getString("url");
-                        String eventGenre = eventJson.getJSONArray("classifications")
-                                .getJSONObject(0)
-                                .getJSONObject("segment")
-                                .getString("name");
-                        Event event = new Event(eventName, eventUrl, eventImg, eventGenre);
-                        eventList.add(event);
-                    }
-                    adapter.notifyDataSetChanged();
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return "Result";
+            return receive;
         }
 
         protected void onProgressUpdate(String ... progress) {
-            // add to event list
-            // Log.e("SearchActivity")
+
         }
 
         // Parse the JSON and make visible
         protected void onPostExecute(String result) {
-            Log.e("", result);
+            // Log.e("", result);
         }
     }
 }

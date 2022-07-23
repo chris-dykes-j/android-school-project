@@ -23,15 +23,32 @@ public class EventAdapter extends ArrayAdapter {
     }
 
     @Override
+    public int getCount() {
+        return events.size();
+    }
+
+    @Override
+    public Object getItem(int pos) {
+        return events.get(pos);
+    }
+
+    @Override
+    public long getItemId(int pos) {
+        return Long.parseLong((events.get(pos).getId()));
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        Event event = events.get(position);
-        int layout = R.layout.event_item;
-        convertView = inflater.inflate(layout, parent, false);
-        // set parameters, textview etc..
-        ImageView img = convertView.findViewById(R.id.searchEventImage);
+        convertView = inflater.inflate(R.layout.event_item, parent, false);
         TextView txt = convertView.findViewById(R.id.searchEventTitle);
+        Event event = events.get(position);
+        // set parameters, textview etc..
         txt.setText(event.getName());
         return convertView;
+    }
+
+    public void updateAdapter(ArrayList<Event> events) {
+        this.events = events;
     }
 }

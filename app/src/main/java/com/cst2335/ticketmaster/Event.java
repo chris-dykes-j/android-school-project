@@ -1,47 +1,60 @@
 package com.cst2335.ticketmaster;
 
 public class Event {
+
     private String name;
+    private String type;
+    private String id;
     private String url;
-    private String imageUrl;
+    private String imgUrl;
+    private String startDate;
+    private String status;
     private String genre;
 
-    public Event(String name, String url, String imageUrl, String genre) {
+    // Just for now, testing
+    public Event(String name, String url, String genre) {
         this.name = name;
         this.url = url;
-        this.imageUrl = imageUrl;
+        this.genre = genre;
+    }
+
+    // from main branch
+    public Event(String name, String type, String id, String url, String imgUrl, String startDate, String status, String genre) {
+        this.name = name;
+        this.type = type;
+        this.id = id;
+        this.url = url;
+        this.imgUrl = imgUrl;
+        this.startDate = startDate;
+        this.status = status;
         this.genre = genre;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getType() {
+        return this.type;
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     public String getUrl() {
-        return url;
+        return this.url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public String getImgUrl() {
+        return this.imgUrl;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getStartDate() {
+        return this.startDate;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public String getStatus() {
+        return this.status;
     }
 }
