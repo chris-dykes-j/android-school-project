@@ -1,10 +1,11 @@
 package com.cst2335.ticketmaster;
 
-        import android.content.Context;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.database.sqlite.SQLiteOpenHelper;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
-        import androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
+
 
 public class EventOpener extends SQLiteOpenHelper {
 
