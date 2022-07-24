@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,7 +16,6 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -33,7 +36,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         eventList = new ArrayList<>();
-        adapter = new EventAdapter(eventList, this);
+        adapter = new EventAdapter();
 
         EventSearch searchEvents = new EventSearch();
         ImageButton searchButton = findViewById(R.id.searchButton);
@@ -44,8 +47,7 @@ public class SearchActivity extends AppCompatActivity {
             try {
                 String searchResult = searchEvents.execute().get();
                 eventList = parseJson(searchResult);
-                Log.e(TAG, eventList.get(0).getName()); // Getting data no problem.
-                adapter.updateAdapter(eventList);
+                Log.e("TEST", eventList.toString());
                 adapter.notifyDataSetChanged();
             } catch (ExecutionException | JSONException | InterruptedException e) {
                 e.printStackTrace();
@@ -68,14 +70,40 @@ public class SearchActivity extends AppCompatActivity {
                         .getJSONObject(0)
                         .getJSONObject("segment")
                         .getString("name");
-//                        String eventImg = eventJson.getJSONArray("images")
-//                                .getJSONObject(0)
-//                                .getString("url");
                 event = new Event(eventName, eventUrl, eventGenre);
                 events.add(event);
             }
         }
         return events;
+    }
+
+    private class EventAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return eventList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return eventList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View view = inflater.inflate(R.layout.event_item, parent, false);
+            TextView textView = view.findViewById(R.id.searchEventTitle);
+            Event ticket = (Event) getItem(position);
+            textView.setText(ticket.getName());
+            return view;
+        }
     }
 
     private class EventSearch extends AsyncTask<String, String, String> {
