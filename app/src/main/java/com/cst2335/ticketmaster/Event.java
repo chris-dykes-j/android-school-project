@@ -4,7 +4,7 @@ public class Event {
 
     private String name;
     private String type;
-    private String id;
+    private long id;
     private String url;
     private String imgUrl;
     private String startDate;
@@ -19,7 +19,7 @@ public class Event {
     }
 
     // from main branch
-    public Event(String name, String type, String id, String url, String imgUrl, String startDate, String status, String genre) {
+    public Event(String name, String type, long id, String url, String imgUrl, String startDate, String status, String genre) {
         this.name = name;
         this.type = type;
         this.id = id;
@@ -38,7 +38,7 @@ public class Event {
         return this.type;
     }
 
-    public String getId() {
+    public long getId() {
         return this.id;
     }
 
