@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // add activity.
+                Intent intent = new Intent(MainActivity.this,WishList.class);
+                startActivity(intent);
             }
         });
         // 3. Save the event like a shopping cart (Taeyeon)

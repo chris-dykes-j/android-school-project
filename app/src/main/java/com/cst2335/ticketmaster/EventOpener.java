@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.NonNull;
 
+
 public class EventOpener extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "TicketmasterEvents";

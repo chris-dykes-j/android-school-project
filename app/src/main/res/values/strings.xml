@@ -2,4 +2,5 @@
     <string name="app_name">TicketMaster</string>
     <string name="searchInput">Search events</string>
     <string name="searchTitle">Event Search</string>
+    <string name="wish_title">My Wish List</string>
 </resources>
