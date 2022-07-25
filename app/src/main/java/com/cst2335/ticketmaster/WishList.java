@@ -50,6 +50,7 @@ public class WishList extends AppCompatActivity {
         JSONArray jsonArr = null;
         String startDate = null;
         String status = null;
+        String city = null;
 
         try {
             JSONObject jobject = new JSONObject(jsonString);
@@ -61,12 +62,16 @@ public class WishList extends AppCompatActivity {
                 type = jObject.optString("type");
                 id = jObject.optString("id");
                 url = jObject.optString("url");
+
                 imgUrl = jObject.optJSONArray("images").optJSONObject(0).optString("url");
                 Log.i("dates : ", jObject.optJSONObject("dates").optJSONObject("start").optString("localDate") + "");
 
                 startDate = jObject.optJSONObject("dates").optJSONObject("start").optString("localDate");
                 status = jObject.optJSONObject("dates").optJSONObject("status").optString("code");
-                tickets.add(new Events(name, type, id, url, imgUrl, startDate, status));
+
+                city = jObject.optJSONObject("_embedded").optJSONArray("venues").optJSONObject(0).optJSONObject("city").optString("name");
+
+                tickets.add(new Events(name, type, id, url, imgUrl, startDate, status, city));
             }
 
         } catch (JSONException e) {

@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // add activity.
+                Intent intent = new Intent(MainActivity.this, BrowseCate.class);
+                startActivity(intent);
+
             }
         });
     }
