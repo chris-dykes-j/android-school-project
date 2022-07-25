@@ -4,11 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
 <<<<<<< HEAD
+        <entry key="..\:/Users/nick_/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_browse_cate.xml" value="0.42934782608695654" />
+        <entry key="..\:/Users/nick_/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_di.xml" value="0.49166666666666664" />
+        <entry key="..\:/Users/nick_/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_main.xml" value="0.5461956521739131" />
+        <entry key="..\:/Users/nick_/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_wish_list.xml" value="0.5546875" />
+        <entry key="..\:/Users/nick_/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/fragment.xml" value="0.365625" />
+        <entry key="..\:/Users/nick_/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/my_wish_list.xml" value="0.5546875" />
+        <entry key="..\:/Users/nick_/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/row_layout.xml" value="0.25" />
+=======
+<<<<<<< HEAD
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_search.xml" value="0.19413919413919414" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/event_item.xml" value="0.264" />
 =======
         <entry key="..\:/CST2335_GroupAssignment/app/src/main/res/layout/activity_tycart.xml" value="0.13134057971014493" />
 >>>>>>> 652678a036b1bff3eabf611eb0cd747dec0841fe
+>>>>>>> dc9072e94d4311bf86cee0fc39da64b75e5c1e6a
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18432971014492755" />
         <entry key="app/src/main/res/layout/activity_wish_list.xml" value="0.18432971014492755" />
         <entry key="app/src/main/res/layout/my_wish_list.xml" value="0.10643115942028986" />

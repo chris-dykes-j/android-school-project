@@ -21,7 +21,7 @@
             android:name=".SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".DiActivity"
+            android:name=".BrowseCate"
             android:exported="false" />
         <activity
             android:name=".WishList"
