@@ -5,4 +5,6 @@
     <string name="searchTitle">Event Search</string>
     <string name="caBTN">Canada</string>
     <string name="usBTN">US</string>
+    <string name="cart_title">Cart Activity</string>
+    <string name="category_title">Categories</string>
 </resources>
