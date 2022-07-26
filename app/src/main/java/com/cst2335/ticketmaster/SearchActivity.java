@@ -52,18 +52,18 @@ public class SearchActivity extends AppCompatActivity {
     private ArrayList<Event> parseJson(String input) throws JSONException {
         ArrayList<Event> events = new ArrayList<>();
         if (!input.isEmpty()) {
-            JSONObject jsonObject = new JSONObject(input).getJSONObject("_embedded");
-            JSONArray jsonArray = jsonObject.getJSONArray("events");
+            JSONObject jsonObject = new JSONObject(input).optJSONObject("_embedded");
+            JSONArray jsonArray = jsonObject.optJSONArray("events");
             // Log.e("", Integer.toString(jsonArray.length())); Bug fixing, all good now.
             for (int i = 0; i < jsonArray.length(); i++) {
                 Event event;
-                JSONObject eventJson = jsonArray.getJSONObject(i);
-                String eventName = eventJson.getString("name");
-                String eventUrl = eventJson.getString("url");
-                String eventGenre = eventJson.getJSONArray("classifications")
-                        .getJSONObject(0)
-                        .getJSONObject("segment")
-                        .getString("name");
+                JSONObject eventJson = jsonArray.optJSONObject(i);
+                String eventName = eventJson.optString("name");
+                String eventUrl = eventJson.optString("url");
+                String eventGenre = eventJson.optJSONArray("classifications")
+                        .optJSONObject(0)
+                        .optJSONObject("segment")
+                        .optString("name");
                 event = new Event(eventName, eventUrl, eventGenre);
                 events.add(event);
             }
