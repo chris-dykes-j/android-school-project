@@ -7,12 +7,15 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <include layout="@layout/toolbar" />
+
     <Button
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search Event"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        />
 
     <Button
         android:id="@+id/wishList"
