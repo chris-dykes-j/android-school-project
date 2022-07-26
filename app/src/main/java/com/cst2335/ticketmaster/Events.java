@@ -1,5 +1,7 @@
 package com.cst2335.ticketmaster;
 
+import org.json.JSONObject;
+
 /**
  * This Events class is for testing purpose
  */
@@ -11,8 +13,9 @@ public class Events {
     private String imgUrl;
     private String startDate;
     private String status;
+    private String city;
 
-    public Events(String name, String type, String id, String url, String imgUrl, String startDate, String status) {
+    public Events(String name, String type, String id, String url, String imgUrl, String startDate, String status, String city) {
         this.name = name;
         this.type = type;
         this.id = id;
@@ -20,6 +23,7 @@ public class Events {
         this.imgUrl = imgUrl;
         this.startDate = startDate;
         this.status = status;
+        this.city = city;
     }
 
     public String getName() {
@@ -48,6 +52,10 @@ public class Events {
 
     public String getStatus() {
         return this.status;
+    }
+
+    public String getCity() {
+        return this.city;
     }
 
 }
