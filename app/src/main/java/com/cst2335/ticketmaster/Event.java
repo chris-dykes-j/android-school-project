@@ -1,25 +1,23 @@
 package com.cst2335.ticketmaster;
 
-public class Event {
+import org.json.JSONObject;
 
+import java.io.Serializable;
+
+/**
+ * This Events class is for testing purpose
+ */
+public class Event implements Serializable {
     private String name;
     private String type;
-    private long id;
+    private String id;
     private String url;
     private String imgUrl;
     private String startDate;
     private String status;
-    private String genre;
+    private String city;
 
-    // Just for now, testing
-    public Event(String name, String url, String genre) {
-        this.name = name;
-        this.url = url;
-        this.genre = genre;
-    }
-
-    // from main branch
-    public Event(String name, String type, long id, String url, String imgUrl, String startDate, String status, String genre) {
+    public Event(String name, String type, String id, String url, String imgUrl, String startDate, String status, String city) {
         this.name = name;
         this.type = type;
         this.id = id;
@@ -27,7 +25,7 @@ public class Event {
         this.imgUrl = imgUrl;
         this.startDate = startDate;
         this.status = status;
-        this.genre = genre;
+        this.city = city;
     }
 
     public String getName() {
@@ -38,7 +36,7 @@ public class Event {
         return this.type;
     }
 
-    public long getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -57,4 +55,9 @@ public class Event {
     public String getStatus() {
         return this.status;
     }
+
+    public String getCity() {
+        return this.city;
+    }
+
 }

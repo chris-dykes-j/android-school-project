@@ -7,4 +7,6 @@
     <string name="usBTN">US</string>
     <string name="cart_title">Cart Activity</string>
     <string name="category_title">Categories</string>
+    <string name="addCart">Add to Cart</string>
+    <string name="addFavs">Add to Wish List</string>
 </resources>

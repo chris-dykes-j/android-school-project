@@ -5,7 +5,6 @@ import static java.lang.Long.parseLong;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 public class DetailsFragment extends Fragment {
 
-    ArrayList<Events> events = new ArrayList<>();
+    ArrayList<Event> events = new ArrayList<>();
     ListAdapter aListAdapter;
 
     @Override
@@ -127,7 +126,7 @@ public class DetailsFragment extends Fragment {
             LayoutInflater inflater = getLayoutInflater();
             View newView = inflater.inflate(R.layout.row_layout, parent, false);
             TextView textView = newView.findViewById(R.id.event_info);
-            Events ticket = (Events) getItem(position);
+            Event ticket = (Event) getItem(position);
             new DownloadImageTask((ImageView) newView.findViewById(R.id.event_image))
                     .execute(ticket.getImgUrl());
             textView.setText(ticket.getName() + "/" + ticket.getStatus() + "/" + ticket.getStartDate() + "/" + ticket.getCity());
@@ -135,7 +134,7 @@ public class DetailsFragment extends Fragment {
         }
     }
 
-    public ArrayList listjsonParser(String jsonString, ArrayList<Events> tickets) {
+    public ArrayList listjsonParser(String jsonString, ArrayList<Event> tickets) {
 
         String name = null;
         String type = null;
@@ -167,7 +166,7 @@ public class DetailsFragment extends Fragment {
 
                 city = jObject.optJSONObject("_embedded").optJSONArray("venues").optJSONObject(0).optJSONObject("city").optString("name");
 
-                tickets.add(new Events(name, type, id, url, imgUrl, startDate, status, city));
+                tickets.add(new Event(name, type, id, url, imgUrl, startDate, status, city));
 
 
             }
