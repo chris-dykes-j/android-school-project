@@ -24,9 +24,11 @@ public class EventActivity extends AppCompatActivity {
         Events event = (Events) getIntent().getSerializableExtra("Event");
         TextView title = findViewById(R.id.eventTitle);
         TextView desc = findViewById(R.id.searchEventDate);
-        // Image img = findViewById(R.id.) // Make image later.
+
         title.setText(event.getName());
         desc.setText(event.getStartDate()); // Should be description.
+        new DownloadImageTask(findViewById(R.id.eventImg))
+                .execute(event.getImgUrl());
 
         ImageButton wish = findViewById(R.id.wishEventButton);
         ImageButton cart = findViewById(R.id.cartEventButton);
