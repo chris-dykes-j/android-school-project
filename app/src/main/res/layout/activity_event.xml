@@ -14,18 +14,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="titleBro"/>
+        android:text="Event"
+        android:textSize="20dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/addFavs"
-        android:id="@+id/wishButton"/>
+        android:id="@+id/searchEventDate" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/addCart"
-        android:id="@+id/cartButton" />
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/wishEventButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/favs"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:id="@+id/cartEventButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/cart"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

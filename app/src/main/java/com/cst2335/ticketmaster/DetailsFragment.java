@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 public class DetailsFragment extends Fragment {
 
-    ArrayList<Event> events = new ArrayList<>();
+    ArrayList<Events> events = new ArrayList<>();
     ListAdapter aListAdapter;
 
     @Override
@@ -126,7 +126,7 @@ public class DetailsFragment extends Fragment {
             LayoutInflater inflater = getLayoutInflater();
             View newView = inflater.inflate(R.layout.row_layout, parent, false);
             TextView textView = newView.findViewById(R.id.event_info);
-            Event ticket = (Event) getItem(position);
+            Events ticket = (Events) getItem(position);
             new DownloadImageTask((ImageView) newView.findViewById(R.id.event_image))
                     .execute(ticket.getImgUrl());
             textView.setText(ticket.getName() + "/" + ticket.getStatus() + "/" + ticket.getStartDate() + "/" + ticket.getCity());
@@ -134,7 +134,7 @@ public class DetailsFragment extends Fragment {
         }
     }
 
-    public ArrayList listjsonParser(String jsonString, ArrayList<Event> tickets) {
+    public ArrayList listjsonParser(String jsonString, ArrayList<Events> tickets) {
 
         String name = null;
         String type = null;
@@ -166,7 +166,7 @@ public class DetailsFragment extends Fragment {
 
                 city = jObject.optJSONObject("_embedded").optJSONArray("venues").optJSONObject(0).optJSONObject("city").optString("name");
 
-                tickets.add(new Event(name, type, id, url, imgUrl, startDate, status, city));
+                tickets.add(new Events(name, type, id, url, imgUrl, startDate, status, city));
 
 
             }

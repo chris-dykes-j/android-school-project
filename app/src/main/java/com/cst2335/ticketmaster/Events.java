@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * This Events class is for testing purpose
  */
-public class Event implements Serializable {
+public class Events implements Serializable {
     private String name;
     private String type;
     private String id;
@@ -17,7 +17,7 @@ public class Event implements Serializable {
     private String status;
     private String city;
 
-    public Event(String name, String type, String id, String url, String imgUrl, String startDate, String status, String city) {
+    public Events(String name, String type, String id, String url, String imgUrl, String startDate, String status, String city) {
         this.name = name;
         this.type = type;
         this.id = id;

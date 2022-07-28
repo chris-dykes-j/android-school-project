@@ -3,12 +3,9 @@ package com.cst2335.ticketmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class EventActivity extends AppCompatActivity {
@@ -24,18 +21,21 @@ public class EventActivity extends AppCompatActivity {
         EventOpener helper = new EventOpener(this);
         SQLiteDatabase database = helper.getWritableDatabase();
 
-        Event event = (Event) getIntent().getSerializableExtra("Event");
+        Events event = (Events) getIntent().getSerializableExtra("Event");
         TextView title = findViewById(R.id.eventTitle);
+        TextView desc = findViewById(R.id.searchEventDate);
+        // Image img = findViewById(R.id.) // Make image later.
         title.setText(event.getName());
+        desc.setText(event.getStartDate()); // Should be description.
 
-        Button wish = findViewById(R.id.wishButton);
-        Button cart = findViewById(R.id.cartButton);
+        ImageButton wish = findViewById(R.id.wishEventButton);
+        ImageButton cart = findViewById(R.id.cartEventButton);
 
         wish.setOnClickListener(v -> addEvent(database, event, "W"));
         cart.setOnClickListener(v -> addEvent(database, event, "C"));
     }
 
-    private void addEvent(SQLiteDatabase database, Event event, String type) {
+    private void addEvent(SQLiteDatabase database, Events event, String type) {
         ContentValues cv = new ContentValues();
         cv.put(EventOpener.COL_NAME, event.getName());
         cv.put(EventOpener.COL_TYPE, type);

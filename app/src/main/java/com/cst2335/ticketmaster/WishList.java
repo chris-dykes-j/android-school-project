@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 public class WishList extends AppCompatActivity {
     // testtest
-    ArrayList<Event> events = new ArrayList<>();
+    ArrayList<Events> events = new ArrayList<>();
     WishListAdapter wishListAdapter;
 
     @Override
@@ -41,7 +41,7 @@ public class WishList extends AppCompatActivity {
         }
     }
 
-    public ArrayList listjsonParser(String jsonString, ArrayList<Event> tickets) {
+    public ArrayList listjsonParser(String jsonString, ArrayList<Events> tickets) {
 
         String name = null;
         String type = null;
@@ -72,7 +72,7 @@ public class WishList extends AppCompatActivity {
 
                 city = jObject.optJSONObject("_embedded").optJSONArray("venues").optJSONObject(0).optJSONObject("city").optString("name");
 
-                tickets.add(new Event(name, type, id, url, imgUrl, startDate, status, city));
+                tickets.add(new Events(name, type, id, url, imgUrl, startDate, status, city));
             }
 
         } catch (JSONException e) {
@@ -104,7 +104,7 @@ public class WishList extends AppCompatActivity {
             LayoutInflater inflater = getLayoutInflater();
             View newView = inflater.inflate(R.layout.my_wish_list, parent, false);
             TextView textView = newView.findViewById(R.id.myWishList_name);
-            Event ticket = (Event) getItem(position);
+            Events ticket = (Events) getItem(position);
             new DownloadImageTask((ImageView) newView.findViewById(R.id.myWishList_image))
                     .execute(ticket.getImgUrl());
             textView.setText(ticket.getName() + "/" + ticket.getStatus() + "/" + ticket.getStartDate());

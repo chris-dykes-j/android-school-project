@@ -2,9 +2,8 @@ package com.cst2335.ticketmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,7 +22,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ import java.util.concurrent.ExecutionException;
 public class SearchActivity extends AppCompatActivity {
 
     private static final String TAG = "SearchActivity";
-    private ArrayList<Event> eventList;
+    private ArrayList<Events> eventList;
     private EventAdapter adapter;
 
     @Override
@@ -73,13 +72,13 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<Event> parseJson(String input) throws JSONException {
-        ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<Events> parseJson(String input) throws JSONException {
+        ArrayList<Events> events = new ArrayList<>();
         if (!input.isEmpty()) {
             JSONObject jsonObject = new JSONObject(input).optJSONObject("_embedded");
             JSONArray jsonArray = jsonObject.optJSONArray("events");
             for (int i = 0; i < jsonArray.length(); i++) {
-                Event event;
+                Events event;
                 JSONObject eventJson = jsonArray.optJSONObject(i);
                 String eventName = eventJson.optString("name");
                 String eventType = eventJson.optString("type");
@@ -101,13 +100,12 @@ public class SearchActivity extends AppCompatActivity {
                         .optJSONObject(0)
                         .optJSONObject("city")
                         .optString("name");
-
 //                String eventGenre = eventJson.optJSONArray("classifications")
 //                        .optJSONObject(0)
 //                        .optJSONObject("segment")
 //                        .optString("name");
 
-                event = new Event(eventName, eventType, eventId, eventUrl, eventImg, eventDate, eventStatus, eventCity);
+                event = new Events(eventName, eventType, eventId, eventUrl, eventImg, eventDate, eventStatus, eventCity);
                 // (name, type, id, url, imgUrl, startDate, status, city)
                 events.add(event);
             }
@@ -159,9 +157,13 @@ public class SearchActivity extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate(R.layout.search_list, parent, false);
-            Event message = eventList.get(position);
-            TextView textView = view.findViewById(R.id.searchEventTitle);
-            textView.setText(message.getName());
+            Events event = eventList.get(position);
+            TextView title = view.findViewById(R.id.searchEventTitle);
+            //TextView date = view.findViewById(R.id.searchEventDate);
+            new DownloadImageTask(view.findViewById(R.id.searchEventImg))
+                    .execute(event.getImgUrl());
+            title.setText(event.getName());
+            //date.setText(message.getStartDate());
             return view;
         }
 
