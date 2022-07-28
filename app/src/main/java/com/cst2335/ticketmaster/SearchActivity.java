@@ -2,11 +2,19 @@ package com.cst2335.ticketmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,11 +27,24 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+// Need Progress Bar (from Di)
+// 1 Toast, 1 Snackbar
+
+// Add navigation to Toolbar
+// The top navigation layout should have the Activity’s title, author, and version number
+// Add fragment for search results (make event activity a fragment?)
+// Help menu item with alert dialog (instructions) use an about icon
+
+// Shared preferences. How to implement? previous search results?
+// Translate strings to french at the end.
+// JavaDoc comments
+// Style GUI at the end
+
 public class SearchActivity extends AppCompatActivity {
 
     private static final String TAG = "SearchActivity";
-    private ArrayList<Event> eventList;
-    private EventAdapterTwo adapter;
+    private ArrayList<Events> eventList;
+    private EventAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +52,21 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         eventList = new ArrayList<>();
-        adapter = new EventAdapterTwo(eventList, this);
+        adapter = new EventAdapter();
 
         EventSearch searchEvents = new EventSearch();
-        ImageButton searchButton = findViewById(R.id.searchButton);
         ListView searchResults = findViewById(R.id.searchEventList);
         searchResults.setAdapter(adapter);
+        ImageButton searchButton = findViewById(R.id.searchButton);
+
+        // Test
+        try {
+            String searchResult = searchEvents.execute().get();
+            eventList = parseJson(searchResult);
+            adapter.notifyDataSetChanged();
+        } catch (ExecutionException | JSONException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
         searchButton.setOnClickListener(view -> {
             try {
@@ -47,24 +77,49 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+
+        searchResults.setOnItemClickListener((list, view, pos, id) -> {
+            Intent goToItem = new Intent(this, EventActivity.class);
+            goToItem.putExtra("Event", eventList.get(pos));
+            startActivity(goToItem);
+        });
     }
 
-    private ArrayList<Event> parseJson(String input) throws JSONException {
-        ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<Events> parseJson(String input) throws JSONException {
+        ArrayList<Events> events = new ArrayList<>();
         if (!input.isEmpty()) {
             JSONObject jsonObject = new JSONObject(input).optJSONObject("_embedded");
             JSONArray jsonArray = jsonObject.optJSONArray("events");
-            // Log.e("", Integer.toString(jsonArray.length())); Bug fixing, all good now.
             for (int i = 0; i < jsonArray.length(); i++) {
-                Event event;
+                Events event;
                 JSONObject eventJson = jsonArray.optJSONObject(i);
                 String eventName = eventJson.optString("name");
+                String eventType = eventJson.optString("type");
+                String eventId = eventJson.optString("id");
                 String eventUrl = eventJson.optString("url");
-                String eventGenre = eventJson.optJSONArray("classifications")
+                String eventImg = eventJson.optJSONArray("images")
                         .optJSONObject(0)
-                        .optJSONObject("segment")
+                        .optString("url");
+                String eventDate = eventJson.optJSONObject("dates")
+                        .optJSONObject("start")
+                        .optString("localDate");
+                String eventStatus = eventJson
+                        .optJSONObject("dates")
+                        .optJSONObject("status")
+                        .optString("code");
+                String eventCity = eventJson
+                        .optJSONObject("_embedded")
+                        .optJSONArray("venues")
+                        .optJSONObject(0)
+                        .optJSONObject("city")
                         .optString("name");
-                event = new Event(eventName, eventUrl, eventGenre);
+//                String eventGenre = eventJson.optJSONArray("classifications")
+//                        .optJSONObject(0)
+//                        .optJSONObject("segment")
+//                        .optString("name");
+
+                event = new Events(eventName, eventType, eventId, eventUrl, eventImg, eventDate, eventStatus, eventCity);
+                // (name, type, id, url, imgUrl, startDate, status, city)
                 events.add(event);
             }
         }
@@ -105,6 +160,39 @@ public class SearchActivity extends AppCompatActivity {
         // Parse the JSON and make visible
         protected void onPostExecute(String result) {
             // Log.e("", result);
+        }
+    }
+
+    // Leaving this here so that the activities don't get too crowded.
+    private class EventAdapter extends BaseAdapter {
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = getLayoutInflater();
+            View view = inflater.inflate(R.layout.search_list, parent, false);
+            Events event = eventList.get(position);
+            TextView title = view.findViewById(R.id.searchEventTitle);
+            //TextView date = view.findViewById(R.id.searchEventDate);
+            new DownloadImageTask(view.findViewById(R.id.searchEventImg))
+                    .execute(event.getImgUrl());
+            title.setText(event.getName());
+            //date.setText(message.getStartDate());
+            return view;
+        }
+
+        @Override
+        public int getCount() {
+            return eventList.size();
+        }
+
+        @Override
+        public Object getItem(int pos) {
+            return eventList.get(pos);
+        }
+
+        @Override
+        public long getItemId(int pos) {
+            return (long) pos;
         }
     }
 }
