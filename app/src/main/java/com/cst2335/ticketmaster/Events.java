@@ -2,10 +2,12 @@ package com.cst2335.ticketmaster;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * This Events class is for testing purpose
  */
-public class Events {
+public class Events implements Serializable {
     private String name;
     private String type;
     private String id;
