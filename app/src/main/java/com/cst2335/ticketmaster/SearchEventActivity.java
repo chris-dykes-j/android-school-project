@@ -6,14 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class EventActivity extends AppCompatActivity {
+public class SearchEventActivity extends AppCompatActivity {
 
     private static final String TABLE_NAME = "Events";
 
@@ -34,6 +33,9 @@ public class EventActivity extends AppCompatActivity {
         desc.setText(event.getStartDate()); // Should be description.
         new DownloadImageTask(findViewById(R.id.eventImg))
                 .execute(event.getImgUrl());
+
+        // The toast
+        Toast.makeText(this, R.string.searchToast, Toast.LENGTH_SHORT).show();
 
         ImageButton wish = findViewById(R.id.wishEventButton);
         ImageButton cart = findViewById(R.id.cartEventButton);
@@ -61,15 +63,15 @@ public class EventActivity extends AppCompatActivity {
                 .setNegativeButton(getString(R.string.alertNo), null)
                 .setPositiveButton(getString(R.string.alertYes), (dialog, which) -> {
                     addEvent(database, event, type);
-                    Toast.makeText(this, R.string.searchToast, Toast.LENGTH_SHORT).show();
+                    eventSnack(database, event);
                 });
         build.show();
     }
 
-//    private void eventSnack(View v, SQLiteDatabase database, Events event) {
-//        Snackbar snack = Snackbar.make(v, R.string.searchSnack, Snackbar.LENGTH_LONG)
-//                .setAction(R.string.searchUndo, e ->
-//                        database.delete(TABLE_NAME, "_id=?", new String[] { event.getId() }));
-//        snack.show();
-//    }
+    private void eventSnack(SQLiteDatabase database, Events event) {
+        Snackbar snack = Snackbar.make(findViewById(R.id.eventActivity), R.string.searchSnack, Snackbar.LENGTH_LONG)
+                .setAction(R.string.searchUndo, e ->
+                        database.delete(TABLE_NAME, "_id=?", new String[] { event.getId() }));
+        snack.show();
+    }
 }
