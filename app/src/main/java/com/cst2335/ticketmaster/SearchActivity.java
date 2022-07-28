@@ -27,6 +27,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+// Need Progress Bar (from Di)
+// 1 Toast, 1 Snackbar
+
+// Add navigation to Toolbar
+// The top navigation layout should have the Activity’s title, author, and version number
+// Add fragment for search results (make event activity a fragment?)
+// Help menu item with alert dialog (instructions) use an about icon
+
+// Shared preferences. How to implement? previous search results?
+// Translate strings to french at the end.
+// JavaDoc comments
+// Style GUI at the end
+
 public class SearchActivity extends AppCompatActivity {
 
     private static final String TAG = "SearchActivity";
