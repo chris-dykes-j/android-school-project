@@ -46,13 +46,6 @@ public class EventActivity extends AppCompatActivity {
         cv.put(EventOpener.COL_LOCATION, event.getCity());
         cv.put(EventOpener.COL_IMG_URL, event.getImgUrl());
         cv.put(EventOpener.COL_STATUS, event.getStatus());
-        // cv.put(EventOpener);
         database.insert(TABLE_NAME, "NullColumn", cv);
-
-//        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-//        int i = cursor.getColumnIndex("type");
-//        cursor.moveToFirst();
-//        while (cursor.moveToNext())
-//            Log.e("Cool", cursor.getString(i));
     }
 }
