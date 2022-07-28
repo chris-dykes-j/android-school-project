@@ -35,6 +35,9 @@ public class EventActivity extends AppCompatActivity {
         new DownloadImageTask(findViewById(R.id.eventImg))
                 .execute(event.getImgUrl());
 
+        // The toast
+        Toast.makeText(this, R.string.searchToast, Toast.LENGTH_SHORT).show();
+
         ImageButton wish = findViewById(R.id.wishEventButton);
         ImageButton cart = findViewById(R.id.cartEventButton);
 
@@ -61,7 +64,6 @@ public class EventActivity extends AppCompatActivity {
                 .setNegativeButton(getString(R.string.alertNo), null)
                 .setPositiveButton(getString(R.string.alertYes), (dialog, which) -> {
                     addEvent(database, event, type);
-                    // Toast.makeText(this, R.string.searchToast, Toast.LENGTH_SHORT).show(); // Will change to snackbar
                     eventSnack(database, event);
                 });
         build.show();

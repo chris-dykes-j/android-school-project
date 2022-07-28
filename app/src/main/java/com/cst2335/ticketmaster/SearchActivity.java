@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 // Need Progress Bar (from Di)
-// 1 Toast, 1 Snackbar
 
 // Add navigation to Toolbar
 // The top navigation layout should have the Activity’s title, author, and version number
