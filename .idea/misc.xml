@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.13728470111448834" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/toolbar.xml" value="0.37734375" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/menu/drawer_menu.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/menu/toolbar_menu.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18432971014492755" />
+        <entry key="app/src/main/res/layout/activity_wish_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_my_wish_fragment.xml" value="0.13385416666666666" />
+        <entry key="app/src/main/res/layout/my_wish_list.xml" value="0.12462006079027356" />
       </map>
     </option>
   </component>
