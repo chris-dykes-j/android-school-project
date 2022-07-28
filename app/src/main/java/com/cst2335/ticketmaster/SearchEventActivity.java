@@ -6,14 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class EventActivity extends AppCompatActivity {
+public class SearchEventActivity extends AppCompatActivity {
 
     private static final String TABLE_NAME = "Events";
 

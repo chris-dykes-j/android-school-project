@@ -3,7 +3,6 @@ package com.cst2335.ticketmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -78,7 +76,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         searchResults.setOnItemClickListener((list, view, pos, id) -> {
-            Intent goToItem = new Intent(this, EventActivity.class);
+            Intent goToItem = new Intent(this, SearchEventActivity.class);
             goToItem.putExtra("Event", eventList.get(pos));
             startActivity(goToItem);
         });
@@ -125,6 +123,7 @@ public class SearchActivity extends AppCompatActivity {
         return events;
     }
 
+    // I like inner classes.
     private class EventSearch extends AsyncTask<String, String, String> {
         private String str, receive;
 
