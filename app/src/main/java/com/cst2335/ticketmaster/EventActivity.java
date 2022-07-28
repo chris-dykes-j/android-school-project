@@ -17,7 +17,7 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        // or Database here?
+        // getting database
         EventOpener helper = new EventOpener(this);
         SQLiteDatabase database = helper.getWritableDatabase();
 
