@@ -27,20 +27,19 @@ public class EventOpener extends SQLiteOpenHelper {
     static final String COL_CATEGORY = "Category"; // Sports, Music, etc.
     static final String COL_PRICE = "TicketPrice";
     static final String COL_DETAILS = "Details";
-
-    // Doesn't seem to like this. (returning null)
+    
     static final String QUERY = String.format(
             "CREATE TABLE %s (_id INTEGER PRIMARY KEY, %s TEXT,  %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
             TABLE_NAME, COL_NAME, COL_TYPE, COL_URL, COL_IMG_URL, COL_DATE, COL_STATUS, COL_LOCATION, COL_CATEGORY, COL_PRICE, COL_DETAILS);
 
     @Override
     public void onCreate(@NonNull SQLiteDatabase database) {
-        database.rawQuery(QUERY, null);
+        database.execSQL(QUERY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int VERSION_NUMBER) {
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        database.rawQuery(QUERY, null);
+        database.execSQL(QUERY);
     }
 }
