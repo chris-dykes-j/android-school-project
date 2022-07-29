@@ -9,15 +9,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 // get attraction
-class WishTask extends AsyncTask<String, Void, String> {
+class WishTask extends AsyncTask<String, Integer, String> {
     private String str, receiveMsg;
 
     @Override
     protected String doInBackground(String... strings) {
 
         // url should be passed as parameters
-        String strUrl = "https://app.ticketmaster.com/discovery/v2/events.json?sort=date,asc&dmaId=527&size=5&countryCode=CA&apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb";
         URL url = null;
+        String params = "";
+        for (int i = 0; i < strings.length; i++) {
+            params += "&" + strings[i];
+        }
+        String strUrl = "https://app.ticketmaster.com/discovery/v2/events.json?sort=date,asc&dmaId=527&size=4&countryCode=CA" + params + "&apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb";
         try {
             url = new URL(strUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -44,8 +48,16 @@ class WishTask extends AsyncTask<String, Void, String> {
         return receiveMsg;
     }
 
+
     @Override
-    protected void onProgressUpdate(Void... values) {
+    protected void onProgressUpdate(Integer... values) {
+
         super.onProgressUpdate(values);
+    }
+
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
     }
 }
