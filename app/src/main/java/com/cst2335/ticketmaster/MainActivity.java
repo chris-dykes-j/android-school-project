@@ -1,28 +1,17 @@
 package com.cst2335.ticketmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Message;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     Button btn1,btn2,btn3,btn4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        super.setLayout(R.layout.activity_main);
 
         // Create database
         EventOpener helper = new EventOpener(this);
@@ -35,16 +24,16 @@ public class MainActivity extends AppCompatActivity {
 
         // 1. Search events and display list (Chris)
         btn1.setOnClickListener(view -> {
-                Intent goToSearch = new Intent(this, SearchActivity.class);
-                startActivity(goToSearch);
-            });
+            Intent goToSearch = new Intent(this, SearchActivity.class);
+            startActivity(goToSearch);
+        });
 
         // 2. Display favourites events (button to delete favorite city) = wish list (Jeongmi)
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // add activity.
-                Intent intent = new Intent(MainActivity.this,WishList.class);
+                Intent intent = new Intent(MainActivity.this, WishList.class);
                 startActivity(intent);
             }
         });
@@ -69,31 +58,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.first_item:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
-            case R.id.second_item:
-                startActivity(new Intent(this, WishList.class));
-                break;
-            case R.id.third_item:
-                startActivity(new Intent(this, CartActivity.class));
-                break;
-            case R.id.fourth_item:
-                startActivity(new Intent(this, BrowseCate.class));
-                break;
-        }
-        return true;
     }
 }

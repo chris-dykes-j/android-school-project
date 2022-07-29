@@ -1,7 +1,5 @@
 package com.cst2335.ticketmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,7 +35,7 @@ import java.util.concurrent.ExecutionException;
 // JavaDoc comments
 // Style GUI at the end
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseActivity {
 
     private static final String TAG = "SearchActivity";
     private ArrayList<Events> eventList;
@@ -46,7 +44,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        super.setLayout(R.layout.activity_search);
 
         eventList = new ArrayList<>();
         adapter = new EventAdapter();
