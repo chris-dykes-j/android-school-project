@@ -36,11 +36,8 @@ public class WishList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
-        String resultText;
         ListView listView = findViewById(R.id.myWishList);
         listView.setAdapter(wishListAdapter = new WishListAdapter());
-        Button btn1 = findViewById(R.id.wish_btn1);
-
         helper = new EventOpener(this);
         db = helper.getWritableDatabase();
         cursor = db.rawQuery("SELECT * FROM " + helper.TABLE_NAME + " ORDER BY _id DESC;", null);
@@ -70,10 +67,8 @@ public class WishList extends AppCompatActivity {
             Events clickedEvent = events.get(position);
             wishFm = new WishFragment();
             bundle = new Bundle();
-            bundle.putString("mySubName",clickedEvent.getName());
+            bundle.putString("mySubCity",clickedEvent.getCity());
             bundle.putString("mySubType",clickedEvent.getType());
-            Log.i("mySubType",clickedEvent.getType());
-            bundle.putString("mySubImage",clickedEvent.getImgUrl());
             wishFm.setArguments(bundle);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -84,80 +79,30 @@ public class WishList extends AppCompatActivity {
 //        Log.i("isPhone","false");
 
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContentValues newRow = new ContentValues();
-                for (int i = 0; i < events.size(); i++) {
+//        btn1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ContentValues newRow = new ContentValues();
+//                for (int i = 0; i < events.size(); i++) {
+//
+//                    newRow.put(helper.COL_NAME, events.get(i).getName());
+//                    newRow.put(helper.COL_TYPE, "F");
+//                    newRow.put(helper.COL_URL, events.get(i).getUrl());
+//                    newRow.put(helper.COL_IMG_URL, events.get(i).getImgUrl());
+//                    newRow.put(helper.COL_DATE, events.get(i).getStartDate());
+//                    newRow.put(helper.COL_STATUS, events.get(i).getStatus());
+//                    newRow.put(helper.COL_LOCATION, events.get(i).getCity());
+//                    newRow.put(helper.COL_CATEGORY, "COL_CATEGORY");
+//                    newRow.put(helper.COL_PRICE, "COL_PRICE");
+//                    newRow.put(helper.COL_DETAILS, "COL_DETAILS");
+////                    long id = db.insert(helper.TABLE_NAME,null,newRow);
+////                    Log.i("id",id+"");
+//                }
+//            }
+//        });
 
-                    newRow.put(helper.COL_NAME, events.get(i).getName());
-                    newRow.put(helper.COL_TYPE, "F");
-                    newRow.put(helper.COL_URL, events.get(i).getUrl());
-                    newRow.put(helper.COL_IMG_URL, events.get(i).getImgUrl());
-                    newRow.put(helper.COL_DATE, events.get(i).getStartDate());
-                    newRow.put(helper.COL_STATUS, events.get(i).getStatus());
-                    newRow.put(helper.COL_LOCATION, events.get(i).getCity());
-                    newRow.put(helper.COL_CATEGORY, "COL_CATEGORY");
-                    newRow.put(helper.COL_PRICE, "COL_PRICE");
-                    newRow.put(helper.COL_DETAILS, "COL_DETAILS");
-//                    long id = db.insert(helper.TABLE_NAME,null,newRow);
-//                    Log.i("id",id+"");
-                }
-            }
-        });
 
-//        try {
-//            resultText = new WishTask().execute().get();
-//            Log.i("test", "GOOOD!!");
-//            listjsonParser(resultText, events);
-//            wishListAdapter.notifyDataSetChanged();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
     }
-
-    public ArrayList listjsonParser(String jsonString, ArrayList<Events> tickets) {
-
-        String name = null;
-        String type = null;
-        String id = null;
-        String url = null;
-        String imgUrl = null;
-        JSONArray jsonArr = null;
-        String startDate = null;
-        String status = null;
-        String city = null;
-
-        try {
-            JSONObject jobject = new JSONObject(jsonString);
-            JSONArray jsonArray = jobject.optJSONObject("_embedded").optJSONArray("events");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jObject = jsonArray.optJSONObject(i);
-
-                name = jObject.optString("name");
-                type = jObject.optString("type");
-                id = jObject.optString("id");
-                url = jObject.optString("url");
-
-                imgUrl = jObject.optJSONArray("images").optJSONObject(0).optString("url");
-                Log.i("dates : ", jObject.optJSONObject("dates").optJSONObject("start").optString("localDate") + "");
-
-                startDate = jObject.optJSONObject("dates").optJSONObject("start").optString("localDate");
-                status = jObject.optJSONObject("dates").optJSONObject("status").optString("code");
-
-                city = jObject.optJSONObject("_embedded").optJSONArray("venues").optJSONObject(0).optJSONObject("city").optString("name");
-
-                tickets.add(new Events(name, type, id, url, imgUrl, startDate, status, city));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return tickets;
-    }
-
     class WishListAdapter extends BaseAdapter {
 
         @Override

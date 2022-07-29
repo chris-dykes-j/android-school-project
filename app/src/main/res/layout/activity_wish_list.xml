@@ -10,11 +10,11 @@
  <ActionMenuView
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/wish_btn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AddSampleData"/>
+<!--    <Button-->
+<!--        android:id="@+id/wish_btn1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="AddSampleData"/>-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
