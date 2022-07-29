@@ -9,12 +9,4 @@
     <string name="category_title">Categories</string>
     <string name="addCart">Add to Cart</string>
     <string name="addFavs">Add to Wish List</string>
-    <string name="searchAlert">Add Event</string>
-    <string name="searchAlertWishMsg">Add event to wish list?</string>
-    <string name="searchAlertCartMsg">Add event to cart?</string>
-    <string name="alertNo">NO</string>
-    <string name="alertYes">Hell yes!</string>
-    <string name="searchToast">Event loaded</string>
-    <string name="searchUndo">Undo</string>
-    <string name="searchSnack">Event added</string>
 </resources>
