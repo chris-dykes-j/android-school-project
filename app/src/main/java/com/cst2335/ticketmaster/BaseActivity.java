@@ -16,18 +16,18 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-public abstract class BaseActivity extends AppCompatActivity { // implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity { // implements NavigationView.OnNavigationItemSelectedListener {
 
     /**
-     * Adds a toolbar to the activity. Make sure that your layout has: <include layout="@layout/toolbar" />
-     * @param layoutId The layout with the toolbar. Needed otherwise toolbar returns null.
-     * @param toolbarId id of the toolbar to be added.
+     * Sets the layout and adds a toolbar to the activity.
+     * Make sure that your layout has: <include layout="@layout/toolbar" />
+     * @param layoutId The layout with the toolbar. Needed otherwise toolbar will be null.
      */
-    protected void addToolbar(int layoutId, int toolbarId) {
+    protected void setLayout(int layoutId) {
         setContentView(layoutId);
-        Toolbar toolbar = (Toolbar) findViewById(toolbarId);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        assert toolbar != null; // Nifty test to make sure that things work.
+        assert toolbar != null; // Nifty test.
 
         // NavigationDrawer stuff... soon...
 //        DrawerLayout drawer = findViewById(R.id.drawer);
