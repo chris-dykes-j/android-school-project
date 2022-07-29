@@ -17,4 +17,6 @@
     <string name="searchToast">Event loaded</string>
     <string name="searchUndo">Undo</string>
     <string name="searchSnack">Event added</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
