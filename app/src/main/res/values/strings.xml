@@ -14,7 +14,7 @@
     <string name="searchAlertCartMsg">Add event to cart?</string>
     <string name="alertNo">NO</string>
     <string name="alertYes">Hell yes!</string>
-    <string name="searchToast">Event added</string>
+    <string name="searchToast">Event loaded</string>
     <string name="searchUndo">Undo</string>
     <string name="searchSnack">Event added</string>
 </resources>
