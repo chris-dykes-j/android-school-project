@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TicketMaster"
         tools:targetApi="31">
         <activity
-            android:name=".EventActivity"
+            android:name=".SearchEventActivity"
             android:exported="false" />
         <activity
             android:name=".SearchActivity"
