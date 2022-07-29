@@ -35,7 +35,7 @@ public class SearchEventActivity extends AppCompatActivity {
                 .execute(event.getImgUrl());
 
         // The toast
-        Toast.makeText(this, R.string.searchToast, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, R.string.searchToast, Toast.LENGTH_SHORT).show();
 
         ImageButton wish = findViewById(R.id.wishEventButton);
         ImageButton cart = findViewById(R.id.cartEventButton);
@@ -70,8 +70,10 @@ public class SearchEventActivity extends AppCompatActivity {
 
     private void eventSnack(SQLiteDatabase database, Events event) {
         Snackbar snack = Snackbar.make(findViewById(R.id.eventActivity), R.string.searchSnack, Snackbar.LENGTH_LONG)
-                .setAction(R.string.searchUndo, e ->
-                        database.delete(TABLE_NAME, "_id=?", new String[] { event.getId() }));
+                .setAction(R.string.searchUndo, e -> {
+                    database.delete(TABLE_NAME, "_id=?", new String[] { event.getId() });
+                    Toast.makeText(this, R.string.searchRemove, Toast.LENGTH_SHORT).show();
+                });
         snack.show();
     }
 }

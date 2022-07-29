@@ -1,7 +1,5 @@
 package com.cst2335.ticketmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,7 +44,7 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.addToolbar(R.layout.activity_search, R.id.toolbar);
+        super.setLayout(R.layout.activity_search);
 
         eventList = new ArrayList<>();
         adapter = new EventAdapter();

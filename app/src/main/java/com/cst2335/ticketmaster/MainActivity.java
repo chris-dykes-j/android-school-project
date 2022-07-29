@@ -1,17 +1,9 @@
 package com.cst2335.ticketmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Message;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends BaseActivity {
     Button btn1,btn2,btn3,btn4;
@@ -19,7 +11,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.addToolbar(R.layout.activity_main, R.id.toolbar);
+        super.setLayout(R.layout.activity_main);
 
         // Create database
         EventOpener helper = new EventOpener(this);
