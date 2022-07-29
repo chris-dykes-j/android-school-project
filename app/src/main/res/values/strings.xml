@@ -17,4 +17,6 @@
     <string name="searchToast">Event loaded</string>
     <string name="searchUndo">Undo</string>
     <string name="searchSnack">Event added</string>
+    <string name="wishAlertDeleteMsg">Remove from wish list?</string>
+    <string name="wishAlert">Modify Event</string>
 </resources>

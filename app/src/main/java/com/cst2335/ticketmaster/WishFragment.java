@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 public class WishFragment extends Fragment {
     ArrayList<Events> events = new ArrayList<>();
-    WishSubListAdapter wishSubListAdapter;
+    WishSubListAdapter wishSubrAdapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String MYSUBCITY = "mySubCity";
@@ -36,6 +38,7 @@ public class WishFragment extends Fragment {
     private ImageView imageView;
     private TextView textView;
     private View newView;
+    RecyclerView rView;
 
     public WishFragment() {
     }
@@ -54,16 +57,15 @@ public class WishFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         newView = inflater.inflate(R.layout.fragment_my_wish_fragment, container, false);
-
+        rView = (RecyclerView) newView.findViewById(R.id.mySubLRecycler);
+        rView.setAdapter(wishSubrAdapter = new WishSubListAdapter());
+        rView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         return newView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ListView listView = newView.findViewById(R.id.mySubList);
-        Log.i("chk", listView+"");
-        listView.setAdapter(wishSubListAdapter = new WishSubListAdapter());
-        listView.setRotation(90);
+
 
         Log.i("mySubCity : ", mySubCity);
         Log.i("mySubType : ", mySubType);
@@ -82,18 +84,20 @@ public class WishFragment extends Fragment {
             String city = null;
             try {
                 JSONObject jobject = new JSONObject(resultText);
-                JSONArray jsonArray = jobject.optJSONObject("_embedded").optJSONArray("events");
+                JSONArray jsonArray = jobject.optJSONObject("_embedded").optJSONArray("attractions");
+                Log.i("size ", jsonArray.length() + "");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jObject = jsonArray.optJSONObject(i);
 
                     name = jObject.optString("name");
                     imgUrl = jObject.optJSONArray("images").optJSONObject(0).optString("url");
-                    startDate = jObject.optJSONObject("dates").optJSONObject("start").optString("localDate");
-                    status = jObject.optJSONObject("dates").optJSONObject("status").optString("code");
-                    city = jObject.optJSONObject("_embedded").optJSONArray("venues").optJSONObject(0).optJSONObject("city").optString("name");
+//                    startDate = jObject.optJSONObject("dates").optJSONObject("start").optString("localDate");
+//                    status = jObject.optJSONObject("dates").optJSONObject("status").optString("code");
+//                    city = jObject.optJSONObject("_embedded").optJSONArray("venues").optJSONObject(0).optJSONObject("city").optString("name");
                     events.add(new Events(name, type, id, url, imgUrl, startDate, status, city));
+                    Log.i("LOOP", name + "/" + type + "/" + id + "/" + url + "/" + imgUrl + "/" + startDate + "/" + status + "/" + city);
                 }
-                wishSubListAdapter.notifyDataSetChanged();
+                wishSubrAdapter.notifyItemInserted(events.size() - 1);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -106,37 +110,45 @@ public class WishFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private class WishSubListAdapter extends BaseAdapter {
+    private class WishSubListAdapter extends RecyclerView.Adapter<SubViewHolder> {
+
+        @NonNull
+        @Override
+        public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater linear = getLayoutInflater();
+            View view = linear.inflate(R.layout.my_sub_list, parent, false);
+
+            return new SubViewHolder(view);
+        }
+
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return events.size();
         }
 
         @Override
-        public Object getItem(int position) {
-            return events.get(position);
+        public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
+
+            Events thisEvent = events.get(position);
+            holder.mySubName.setText(thisEvent.getName());
+            new DownloadImageTask((ImageView) holder.mySubImg)
+                    .execute(thisEvent.getImgUrl());
+            Log.i("testtesting", thisEvent.getName() + "/" + thisEvent.getCity() + "/" + thisEvent.getStartDate());
         }
 
-        @Override
-        public long getItemId(int position) {
-            return Long.parseLong(events.get(position).getId());
-        }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+    }
 
-            LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.my_sub_list, parent, false);
-            TextView textView = newView.findViewById(R.id.mySubList_name);
-            Events ticket = (Events) getItem(position);
-            textView.setRotation(270);
-            new DownloadImageTask((ImageView) newView.findViewById(R.id.mySubList_image))
-                    .execute(ticket.getImgUrl());
-            textView.setText(ticket.getName() + "/" + ticket.getCity() + "/" + ticket.getStartDate());
-            Log.i("testtesting",ticket.getName() + "/" + ticket.getCity() + "/" + ticket.getStartDate());
+    public class SubViewHolder extends RecyclerView.ViewHolder {
+        TextView mySubName;
+        ImageView mySubImg;
 
-            return newView;
+        public SubViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mySubName = itemView.findViewById(R.id.mySubList_name);
+            mySubImg = itemView.findViewById(R.id.mySubList_image);
+
         }
     }
 }
