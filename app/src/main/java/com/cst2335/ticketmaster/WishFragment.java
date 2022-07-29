@@ -19,10 +19,12 @@ public class WishFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String MYSUBNAME = "mySubName";
     private static final String MYSUBIMAGE = "mySubImage";
+    private static final String MYSUBTYPE = "mySubType";
 
     // TODO: Rename and change types of parameters
     private String mySubName;
     private String mySubImage;
+    private String mySubType;
     private ImageView imageView;
     private TextView textView;
 
@@ -36,6 +38,7 @@ public class WishFragment extends Fragment {
         if (getArguments() != null) {
             mySubName = getArguments().getString(MYSUBNAME);
             mySubImage = getArguments().getString(MYSUBIMAGE);
+            mySubType = getArguments().getString(MYSUBTYPE);
 
         }
     }
@@ -55,6 +58,9 @@ public class WishFragment extends Fragment {
 
         Log.i("mySubName : ", mySubName);
         Log.i("mySubImage : ", mySubImage);
+        Log.i("mySubType : ", mySubType);
+
+
 //        new DownloadImageTask((ImageView) view.findViewById(R.id.mySubImage))
 //                .execute(mySubImage);
         super.onViewCreated(view, savedInstanceState);

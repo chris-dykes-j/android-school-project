@@ -43,13 +43,15 @@ public class WishList extends AppCompatActivity {
 
         helper = new EventOpener(this);
         db = helper.getWritableDatabase();
-        cursor = db.rawQuery("SELECT * FROM " + helper.TABLE_NAME + ";", null);
+        cursor = db.rawQuery("SELECT * FROM " + helper.TABLE_NAME + " ORDER BY _id DESC;", null);
 
         int idIndex = cursor.getColumnIndex("_id");
         int nameIndex = cursor.getColumnIndex(helper.COL_NAME);
         int imgUrlIndex = cursor.getColumnIndex(helper.COL_IMG_URL);
         int cityIndex = cursor.getColumnIndex(helper.COL_LOCATION);
         int startDateIndex = cursor.getColumnIndex(helper.COL_DATE);
+        int categoryIndex = cursor.getColumnIndex(helper.COL_CATEGORY);
+
 
         // cursor is pointing to row - 1
         // keep looping until no more data
@@ -59,8 +61,9 @@ public class WishList extends AppCompatActivity {
             String imgUrl = cursor.getString(imgUrlIndex);
             String city = cursor.getString(cityIndex);
             String startDate = cursor.getString(startDateIndex);
+            String category = cursor.getString(categoryIndex);
 
-            events.add(new Events(name, "", id + "", "", imgUrl, startDate, "", city));
+            events.add(new Events(name, category, id + "", "", imgUrl, startDate, "", city));
 
         }
         listView.setOnItemClickListener((p, b, position, id) -> {
@@ -68,6 +71,8 @@ public class WishList extends AppCompatActivity {
             wishFm = new WishFragment();
             bundle = new Bundle();
             bundle.putString("mySubName",clickedEvent.getName());
+            bundle.putString("mySubType",clickedEvent.getType());
+            Log.i("mySubType",clickedEvent.getType());
             bundle.putString("mySubImage",clickedEvent.getImgUrl());
             wishFm.setArguments(bundle);
             getSupportFragmentManager()
