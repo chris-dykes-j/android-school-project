@@ -2,11 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/eventActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SearchEventActivity"
-    android:id="@+id/eventActivity">
+    tools:context=".SearchEventActivity">
+
+    <TextView
+        android:id="@+id/eventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Event"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,45 +28,36 @@
             android:id="@+id/eventImg"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/eventTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Event"
-            android:textSize="20dp"/>
+            android:id="@+id/searchEventDate"
+            android:layout_width="289dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"/>
 
     </LinearLayout>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchEventDate" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/wishEventButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/favs"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/favs" />
 
         <ImageButton
             android:id="@+id/cartEventButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/cart"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/cart" />
 
     </LinearLayout>
 
