@@ -20,4 +20,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="searchRemove">Event removed</string>
+    <string name="wishAlertDeleteMsg">Remove from wish list?</string>
+    <string name="wishAlert">Modify Event</string>
 </resources>

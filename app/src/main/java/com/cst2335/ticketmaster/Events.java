@@ -16,8 +16,15 @@ public class Events implements Serializable {
     private String startDate;
     private String status;
     private String city;
+    private Double price;   // price for tickets
+    private Integer tickeNum; //number of tickets
+    private String isActive; //Y: active N: deleted
 
     public Events(String name, String type, String id, String url, String imgUrl, String startDate, String status, String city) {
+        this(name, type, id, url, imgUrl, startDate, status, city, 0.0, 1, "Y");
+    }
+
+    public Events(String name, String type, String id, String url, String imgUrl, String startDate, String status, String city, Double price, Integer tickeNum, String isActive) {
         this.name = name;
         this.type = type;
         this.id = id;
@@ -26,6 +33,9 @@ public class Events implements Serializable {
         this.startDate = startDate;
         this.status = status;
         this.city = city;
+        this.price = price;
+        this.tickeNum = tickeNum;
+        this.isActive = isActive;
     }
 
     public String getName() {

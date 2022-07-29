@@ -21,7 +21,9 @@ class WishTask extends AsyncTask<String, Integer, String> {
         for (int i = 0; i < strings.length; i++) {
             params += "&" + strings[i];
         }
-        String strUrl = "https://app.ticketmaster.com/discovery/v2/events.json?sort=date,asc&dmaId=527&size=4&countryCode=CA" + params + "&apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb";
+
+        String strUrl = "https://app.ticketmaster.com/discovery/v2/attractions.json?sort=random&dmaId=527&size=4&countryCode=CA" + params + "&apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb";
+        Log.i("url", strUrl);
         try {
             url = new URL(strUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
