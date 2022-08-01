@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,10 +50,11 @@ public class SearchActivity extends BaseActivity {
         eventList = new ArrayList<>();
         adapter = new EventAdapter();
 
-        EventSearch searchEvents = new EventSearch();
+        EventSearch searchEvents = new EventSearch("https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb");
         ListView searchResults = findViewById(R.id.searchEventList);
         searchResults.setAdapter(adapter);
         ImageButton searchButton = findViewById(R.id.searchButton);
+        TextView searchQuery = findViewById(R.id.searchInput);
 
         // Test
         try {
@@ -65,7 +67,14 @@ public class SearchActivity extends BaseActivity {
 
         searchButton.setOnClickListener(view -> {
             try {
-                String searchResult = searchEvents.execute().get();
+                String keyWord = searchQuery.getText().toString();
+                String searchResult = "";
+                if (!keyWord.equals(""))
+                    searchResult = new EventSearch("https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb&keyword=" + keyWord).execute().get();
+                else {
+                    searchResult = new EventSearch("https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb").execute().get();
+                    Toast.makeText(this, R.string.emptySearch, Toast.LENGTH_SHORT).show();
+                }
                 eventList = parseJson(searchResult);
                 adapter.notifyDataSetChanged();
             } catch (ExecutionException | JSONException | InterruptedException e) {
@@ -86,45 +95,55 @@ public class SearchActivity extends BaseActivity {
             JSONObject jsonObject = new JSONObject(input).optJSONObject("_embedded");
             JSONArray jsonArray = jsonObject.optJSONArray("events");
             for (int i = 0; i < jsonArray.length(); i++) {
-                Events event;
+                String eventName = ""; String eventType = ""; String eventId = ""; String eventUrl= "";
+                String eventImg= ""; String eventDate= ""; String eventStatus= ""; String eventCity = "";
+                double eventPrice = 0.0;
                 JSONObject eventJson = jsonArray.optJSONObject(i);
-                String eventName = eventJson.optString("name");
-                String eventType = eventJson.optJSONArray("classifications") // <---- Updated to grab category (ie. sports)
-                        .optJSONObject(0)
-                        .optJSONObject("segment")
-                        .optString("name");
-                String eventId = eventJson.optString("id");
-                String eventUrl = eventJson.optString("url");
-                String eventImg = eventJson.optJSONArray("images")
-                        .optJSONObject(0)
-                        .optString("url");
-                String eventDate = eventJson.optJSONObject("dates")
-                        .optJSONObject("start")
-                        .optString("localDate");
-                String eventStatus = eventJson
-                        .optJSONObject("dates")
-                        .optJSONObject("status")
-                        .optString("code");
-                String eventCity = eventJson
-                        .optJSONObject("_embedded")
-                        .optJSONArray("venues")
-                        .optJSONObject(0)
-                        .optJSONObject("city")
-                        .optString("name");
-                // Updated
-                double eventPrice;
                 try {
+                    eventName = eventJson.optString("name");
+                    eventType = eventJson.optJSONArray("classifications") // <---- Updated to grab category (ie. sports)
+                            .optJSONObject(0)
+                            .optJSONObject("segment")
+                            .optString("name");
+                    eventId = eventJson.optString("id");
+                    eventUrl = eventJson.optString("url");
+                    eventImg = eventJson.optJSONArray("images")
+                            .optJSONObject(0)
+                            .optString("url");
+                    eventDate = eventJson.optJSONObject("dates")
+                            .optJSONObject("start")
+                            .optString("localDate");
+                    eventStatus = eventJson
+                            .optJSONObject("dates")
+                            .optJSONObject("status")
+                            .optString("code");
+                    eventCity = eventJson
+                            .optJSONObject("_embedded")
+                            .optJSONArray("venues")
+                            .optJSONObject(0)
+                            .optJSONObject("city")
+                            .optString("name");
                     eventPrice = Double.parseDouble(eventJson
                             .optJSONArray("priceRanges")
                             .optJSONObject(0)
                             .optString("min"));
-                } catch (Exception e) {
-                    eventPrice = 0.0;
                 }
-
-                event = new Events(eventName, eventType, eventId, eventUrl, eventImg, eventDate,
-                        eventStatus, eventCity, eventPrice, 1, "Y");
-                events.add(event);
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                events.add(Events.buildEvent()
+                        .setName(eventName)
+                        .setType(eventType)
+                        .setId(eventId)
+                        .setUrl(eventUrl)
+                        .setImgUrl(eventImg)
+                        .setStartDate(eventDate)
+                        .setStatus(eventStatus)
+                        .setCity(eventCity)
+                        .setPrice(eventPrice)
+                        .setTicketNum(1)
+                        .setIsActive("Y")
+                        .build());
             }
         }
         return events;
@@ -132,11 +151,15 @@ public class SearchActivity extends BaseActivity {
 
     // I like inner classes.
     private class EventSearch extends AsyncTask<String, String, String> {
-        private String str, receive;
+        private final String strUrl;
+        private String receive;
+
+            EventSearch(String strUrl) {
+                this.strUrl = strUrl;
+            }
 
         // Get the JSON
         protected String doInBackground(String... args) {
-            String strUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb";
             URL url;
             try {
                 url = new URL(strUrl);
@@ -146,6 +169,7 @@ public class SearchActivity extends BaseActivity {
                     InputStreamReader input = new InputStreamReader(connection.getInputStream());
                     BufferedReader read = new BufferedReader(input);
                     StringBuffer buffy = new StringBuffer();
+                    String str;
                     while ((str = read.readLine()) != null)
                         buffy.append(str + "\n");
                     receive = buffy.toString();
@@ -177,11 +201,9 @@ public class SearchActivity extends BaseActivity {
             View view = inflater.inflate(R.layout.search_list, parent, false);
             Events event = eventList.get(position);
             TextView title = view.findViewById(R.id.searchEventTitle);
-            //TextView date = view.findViewById(R.id.searchEventDate);
             new DownloadImageTask(view.findViewById(R.id.searchEventImg))
                     .execute(event.getImgUrl());
             title.setText(event.getName());
-            //date.setText(message.getStartDate());
             return view;
         }
 

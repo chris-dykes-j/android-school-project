@@ -6,14 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class SearchEventActivity extends AppCompatActivity {
 
+    private static final String TAG = "SearchEventActivity";
     private static final String TABLE_NAME = "Events";
 
     @Override
@@ -25,14 +30,17 @@ public class SearchEventActivity extends AppCompatActivity {
         SQLiteDatabase database = helper.getWritableDatabase();
 
         Events event = (Events) getIntent().getSerializableExtra("Event");
+        Log.e(TAG, event.toString());
         TextView title = findViewById(R.id.eventTitle);
         TextView date = findViewById(R.id.searchEventDate);
         TextView price = findViewById(R.id.searchEventPrice);
 
         title.setText(event.getName());
         date.setText(event.getStartDate()); // Should be description.
-        String eventPrice = (Double.compare(event.getPrice(), 0.0) == 0) ? String.valueOf(R.string.eventFree) : String.valueOf(event.getPrice());
-        price.setText("$" + eventPrice + "0");
+        String eventPrice;
+        eventPrice = (Double.compare(event.getPrice(), 0.0) == 0) ? getString(R.string.eventFree) :
+                NumberFormat.getCurrencyInstance(new Locale("en", "US")).format(event.getPrice());
+        price.setText(eventPrice);
         new DownloadImageTask(findViewById(R.id.eventImg))
                 .execute(event.getImgUrl());
 
