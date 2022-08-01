@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- <item android:title="" /> -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navSearch"
         android:icon="@drawable/search"
-        android:title="@string/searchTitle"/>
+        android:title="@string/searchTitle"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="10" />
+    <item
+        android:id="@+id/navWish"
+        android:icon="@drawable/favs"
+        android:title="@string/wish_title"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="20" />
+    <item
+        android:id="@+id/navCart"
+        android:icon="@drawable/cart"
+        android:title="@string/cart_title"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="30" />
+    <item
+        android:id="@+id/navCategories"
+        android:icon="@drawable/categories"
+        android:title="@string/category_title"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="40" />
 </menu>

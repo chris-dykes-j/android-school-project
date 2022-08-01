@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class BaseActivity extends AppCompatActivity { // implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     /**
      * Sets the layout and adds a toolbar to the activity.
@@ -29,15 +29,15 @@ public class BaseActivity extends AppCompatActivity { // implements NavigationVi
         setSupportActionBar(toolbar);
         assert toolbar != null; // Nifty test.
 
-        // NavigationDrawer stuff... soon...
-//        DrawerLayout drawer = findViewById(R.id.drawer);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
-//                (this, drawer, toolbar, R.string.open, R.string.close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-//
-//        NavigationView nav = findViewById(R.id.navBar);
-//        nav.setNavigationItemSelectedListener(this);
+        // NavigationDrawer stuff... WIP
+        DrawerLayout drawer = findViewById(R.id.drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
+                (this, drawer, toolbar, R.string.open, R.string.close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView nav = findViewById(R.id.navBar);
+        nav.setNavigationItemSelectedListener(this);
 
     }
 
@@ -67,11 +67,11 @@ public class BaseActivity extends AppCompatActivity { // implements NavigationVi
         return true;
     }
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        DrawerLayout drawerLayout = findViewById(R.id.drawer);
-//        drawerLayout.closeDrawer(GravityCompat.START);
-//        return false;
-//    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        DrawerLayout drawerLayout = findViewById(R.id.drawer);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return false;
+    }
 
 }
