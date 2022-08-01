@@ -121,10 +121,19 @@ public class SearchActivity extends BaseActivity {
                 } catch (Exception e) {
                     eventPrice = 0.0;
                 }
-
-                event = new Events(eventName, eventType, eventId, eventUrl, eventImg, eventDate,
-                        eventStatus, eventCity, eventPrice, 1, "Y");
-                events.add(event);
+                events.add(Events.buildEvent()
+                        .setName(eventName)
+                        .setType(eventType)
+                        .setId(eventId)
+                        .setUrl(eventUrl)
+                        .setImgUrl(eventImg)
+                        .setStartDate(eventDate)
+                        .setStatus(eventStatus)
+                        .setCity(eventCity)
+                        .setPrice(eventPrice)
+                        .setTicketNum(1)
+                        .setIsActive("Y")
+                        .build());
             }
         }
         return events;
