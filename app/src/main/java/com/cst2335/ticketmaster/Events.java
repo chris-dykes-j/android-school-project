@@ -156,4 +156,11 @@ public class Events implements Serializable {
             return new Events(name, type, id, url, imgUrl, startDate, status, city, price, ticketNum, isActive);
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s",
+                name, type, id, url, imgUrl, startDate, status, city, price, ticketNum, isActive);
+    }
+
 }
