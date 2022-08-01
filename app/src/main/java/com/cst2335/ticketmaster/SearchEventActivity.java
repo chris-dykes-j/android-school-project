@@ -21,21 +21,20 @@ public class SearchEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        // getting database
         EventOpener helper = new EventOpener(this);
         SQLiteDatabase database = helper.getWritableDatabase();
 
         Events event = (Events) getIntent().getSerializableExtra("Event");
         TextView title = findViewById(R.id.eventTitle);
-        TextView desc = findViewById(R.id.searchEventDate);
+        TextView date = findViewById(R.id.searchEventDate);
+        TextView price = findViewById(R.id.searchEventPrice);
 
         title.setText(event.getName());
-        desc.setText(event.getStartDate()); // Should be description.
+        date.setText(event.getStartDate()); // Should be description.
+        String eventPrice = (Double.compare(event.getPrice(), 0.0) == 0) ? String.valueOf(R.string.eventFree) : String.valueOf(event.getPrice());
+        price.setText("$" + eventPrice + "0");
         new DownloadImageTask(findViewById(R.id.eventImg))
                 .execute(event.getImgUrl());
-
-        // The toast
-        // Toast.makeText(this, R.string.searchToast, Toast.LENGTH_SHORT).show();
 
         ImageButton wish = findViewById(R.id.wishEventButton);
         ImageButton cart = findViewById(R.id.cartEventButton);
@@ -53,6 +52,9 @@ public class SearchEventActivity extends AppCompatActivity {
         cv.put(EventOpener.COL_LOCATION, event.getCity());
         cv.put(EventOpener.COL_IMG_URL, event.getImgUrl());
         cv.put(EventOpener.COL_STATUS, event.getStatus());
+        cv.put(EventOpener.COL_PRICE, event.getPrice());
+        cv.put(EventOpener.COL_TICKETNUM, event.getPrice());
+        cv.put(EventOpener.COL_ISACTIVE, event.getIsActive());
         database.insert(TABLE_NAME, "NullColumn", cv);
     }
 
