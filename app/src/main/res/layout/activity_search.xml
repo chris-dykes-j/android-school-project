@@ -8,38 +8,43 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/toolbar"
-        android:layout_height="56dp"
-        app:layout_constraintBottom_toTopOf="@+id/searchInput"
-        app:layout_constraintTop_toTopOf="parent" />
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/searchTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/searchTitle"
         android:textAlignment="center"
         android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchInput"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <EditText
         android:id="@+id/searchInput"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="70dp"
         android:hint="@string/searchInput"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchTitle" />
 
     <ImageButton
         android:id="@+id/searchButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/round_corner"
         android:scaleType="fitCenter"
-        android:src="@drawable/search_icon"
+        android:src="@drawable/search_w"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/searchInput"
-        app:layout_constraintTop_toBottomOf="@+id/searchTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/searchTitle"
+        android:padding="6dp"/>
 
     <ListView
         android:id="@+id/searchEventList"

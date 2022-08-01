@@ -89,7 +89,10 @@ public class SearchActivity extends BaseActivity {
                 Events event;
                 JSONObject eventJson = jsonArray.optJSONObject(i);
                 String eventName = eventJson.optString("name");
-                String eventType = eventJson.optString("type");
+                String eventType = eventJson.optJSONArray("classifications") // <---- Updated to grab category (ie. sports)
+                        .optJSONObject(0)
+                        .optJSONObject("segment")
+                        .optString("name");
                 String eventId = eventJson.optString("id");
                 String eventUrl = eventJson.optString("url");
                 String eventImg = eventJson.optJSONArray("images")
@@ -108,13 +111,19 @@ public class SearchActivity extends BaseActivity {
                         .optJSONObject(0)
                         .optJSONObject("city")
                         .optString("name");
-//                String eventGenre = eventJson.optJSONArray("classifications")
-//                        .optJSONObject(0)
-//                        .optJSONObject("segment")
-//                        .optString("name");
+                // Updated
+                double eventPrice;
+                try {
+                    eventPrice = Double.parseDouble(eventJson
+                            .optJSONArray("priceRanges")
+                            .optJSONObject(0)
+                            .optString("min"));
+                } catch (Exception e) {
+                    eventPrice = 0.0;
+                }
 
-                event = new Events(eventName, eventType, eventId, eventUrl, eventImg, eventDate, eventStatus, eventCity);
-                // (name, type, id, url, imgUrl, startDate, status, city)
+                event = new Events(eventName, eventType, eventId, eventUrl, eventImg, eventDate,
+                        eventStatus, eventCity, eventPrice, 1, "Y");
                 events.add(event);
             }
         }

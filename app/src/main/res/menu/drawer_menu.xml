@@ -3,6 +3,6 @@
     <!-- <item android:title="" /> -->
     <item
         android:id="@+id/navSearch"
-        android:icon="@drawable/search_icon"
+        android:icon="@drawable/search"
         android:title="@string/searchTitle"/>
 </menu>

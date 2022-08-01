@@ -6,24 +6,24 @@
         android:orderInCategory="100"
         android:title="@string/searchTitle"
         app:showAsAction="never"
-        android:icon="@drawable/search" />
+        android:icon="@drawable/search_w" />
     <item
         android:id="@+id/second_item"
         android:orderInCategory="200"
         android:title="@string/wish_title"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/favs" />
+        android:icon="@drawable/favs_w" />
     <item
         android:id="@+id/third_item"
         android:orderInCategory="300"
         android:title="@string/cart_title"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/cart" />
+        android:icon="@drawable/cart_w" />
     <item
         android:id="@+id/fourth_item"
         android:orderInCategory="400"
         android:title="@string/category_title"
         app:showAsAction="never"
-        android:icon="@drawable/categories"/>
+        android:icon="@drawable/categories_w"/>
 
 </menu>

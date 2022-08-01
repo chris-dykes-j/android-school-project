@@ -70,4 +70,10 @@ public class Events implements Serializable {
         return this.city;
     }
 
+    public Double getPrice() { return this.price; }
+
+    public Integer getTickeNum() { return this.tickeNum; }
+
+    public String getIsActive() { return this.isActive; }
+
 }

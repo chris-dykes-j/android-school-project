@@ -22,4 +22,5 @@
     <string name="searchRemove">Event removed</string>
     <string name="wishAlertDeleteMsg">Remove from wish list?</string>
     <string name="wishAlert">Modify Event</string>
+    <string name="eventFree">Free</string>
 </resources>
