@@ -8,15 +8,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class BaseActivity extends AppCompatActivity { // implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     /**
      * Sets the layout and adds a toolbar to the activity.
@@ -29,16 +27,20 @@ public class BaseActivity extends AppCompatActivity { // implements NavigationVi
         setSupportActionBar(toolbar);
         assert toolbar != null; // Nifty test.
 
-        // NavigationDrawer stuff... soon...
-//        DrawerLayout drawer = findViewById(R.id.drawer);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
-//                (this, drawer, toolbar, R.string.open, R.string.close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-//
-//        NavigationView nav = findViewById(R.id.navBar);
-//        nav.setNavigationItemSelectedListener(this);
+//        View view = findViewById(R.id.drawer);
+//        view.bringToFront();
 
+        // NavigationDrawer stuff... WIP
+        DrawerLayout drawer = findViewById(R.id.drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
+                (this, drawer, toolbar, R.string.open, R.string.close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView nav = findViewById(R.id.navBar);
+        nav.setNavigationItemSelectedListener(this);
+//        nav.bringToFront();
+//        nav.invalidate();
     }
 
     @Override
@@ -67,11 +69,25 @@ public class BaseActivity extends AppCompatActivity { // implements NavigationVi
         return true;
     }
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        DrawerLayout drawerLayout = findViewById(R.id.drawer);
-//        drawerLayout.closeDrawer(GravityCompat.START);
-//        return false;
-//    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navSearch:
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
+            case R.id.navWish:
+                startActivity(new Intent(this, WishList.class));
+                break;
+            case R.id.navCart:
+                startActivity(new Intent(this, CartActivity.class));
+                break;
+            case R.id.navCategories:
+                startActivity(new Intent(this, BrowseCate.class));
+                break;
+        }
+        DrawerLayout drawerLayout = findViewById(R.id.drawer);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return false;
+    }
 
 }

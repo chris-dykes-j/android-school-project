@@ -24,4 +24,8 @@
     <string name="wishAlert">Modify Event</string>
     <string name="eventFree">Free</string>
     <string name="emptySearch">Search bar empty</string>
+    <string name="navSearch">Search Events</string>
+    <string name="navWish">Wish List</string>
+    <string name="navCart">Cart Activity</string>
+    <string name="navCategories">Categories</string>
 </resources>
