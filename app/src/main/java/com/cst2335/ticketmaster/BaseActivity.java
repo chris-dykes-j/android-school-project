@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -25,6 +26,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         assert toolbar != null; // Nifty test.
+
+//        View view = findViewById(R.id.drawer);
+//        view.bringToFront();
 
         // NavigationDrawer stuff... WIP
         DrawerLayout drawer = findViewById(R.id.drawer);

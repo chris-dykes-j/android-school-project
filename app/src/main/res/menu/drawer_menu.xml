@@ -4,25 +4,25 @@
     <item
         android:id="@+id/navSearch"
         android:icon="@drawable/search"
-        android:title="@string/searchTitle"
+        android:title="@string/navSearch"
         app:showAsAction="ifRoom"
         android:orderInCategory="10" />
     <item
         android:id="@+id/navWish"
         android:icon="@drawable/favs"
-        android:title="@string/wish_title"
+        android:title="@string/navWish"
         app:showAsAction="ifRoom"
         android:orderInCategory="20" />
     <item
         android:id="@+id/navCart"
         android:icon="@drawable/cart"
-        android:title="@string/cart_title"
+        android:title="@string/navCart"
         app:showAsAction="ifRoom"
         android:orderInCategory="30" />
     <item
         android:id="@+id/navCategories"
         android:icon="@drawable/categories"
-        android:title="@string/category_title"
+        android:title="@string/navCategories"
         app:showAsAction="ifRoom"
         android:orderInCategory="40" />
 </menu>
