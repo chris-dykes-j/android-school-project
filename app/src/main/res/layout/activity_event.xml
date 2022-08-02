@@ -22,8 +22,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/eventImg"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="225dp"
+        android:layout_height="175dp"
         android:layout_marginStart="130dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="131dp"
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toStartOf="@+id/cartEventButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchEventDate"
-        app:srcCompat="@drawable/favs_w"
+        app:srcCompat="@drawable/favs_r"
         android:background="@drawable/round_corner"
         android:padding="8dp" />
 
@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/wishEventButton"
         app:layout_constraintTop_toBottomOf="@+id/searchEventDate"
-        app:srcCompat="@drawable/cart_w"
+        app:srcCompat="@drawable/cart_y"
         android:background="@drawable/round_corner"
         android:padding="8dp" />
 

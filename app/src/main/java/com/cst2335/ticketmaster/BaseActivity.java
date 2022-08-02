@@ -67,6 +67,20 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navSearch:
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
+            case R.id.navWish:
+                startActivity(new Intent(this, WishList.class));
+                break;
+            case R.id.navCart:
+                startActivity(new Intent(this, CartActivity.class));
+                break;
+            case R.id.navCategories:
+                startActivity(new Intent(this, BrowseCate.class));
+                break;
+        }
         DrawerLayout drawerLayout = findViewById(R.id.drawer);
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
