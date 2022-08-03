@@ -29,10 +29,9 @@ import java.util.concurrent.ExecutionException;
 // Need Progress Bar (from Di)
 
 // The top navigation layout should have the Activity’s title, author, and version number
-// Add fragment for search results (make event activity a fragment?)
 // Help menu item with alert dialog (instructions) use an about icon
 
-// Shared preferences. How to implement? previous search results?
+// Shared preferences. Previous search, and for WishList recommendation list.
 // Translate strings to french at the end.
 // JavaDoc comments
 // Style GUI at the end
@@ -47,7 +46,7 @@ public class SearchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setLayout(R.layout.activity_search);
-        //setContentView(R.layout.activity_search);
+        // setContentView(R.layout.activity_search);
 
         eventList = new ArrayList<>();
         adapter = new EventAdapter();
