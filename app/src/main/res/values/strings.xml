@@ -28,4 +28,6 @@
     <string name="navWish">Wish List</string>
     <string name="navCart">Cart Activity</string>
     <string name="navCategories">Categories</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
