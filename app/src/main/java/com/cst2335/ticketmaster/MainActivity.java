@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
             //test again
-                Intent intent = new Intent(MainActivity.this, BrowseCate.class);
+                Intent intent = new Intent(MainActivity.this, BrowseCateActivity.class);
                 startActivity(intent);
 
             }
