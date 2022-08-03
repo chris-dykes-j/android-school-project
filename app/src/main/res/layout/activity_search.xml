@@ -6,21 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity">
 
-    <!-- <include
+    <include
         android:id="@+id/include"
-        layout="@layout/toolbar" /> -->
+        layout="@layout/toolbar"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/searchTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="16dp"
         android:text="@string/searchTitle"
         android:textAlignment="center"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/searchInput" />
-<!--        app:layout_constraintTop_toBottomOf="@+id/include" />-->
+        app:layout_constraintBottom_toTopOf="@+id/searchInput"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/searchInput"
