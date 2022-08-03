@@ -27,10 +27,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         assert toolbar != null; // Nifty test.
 
-        // Not helping...
-//        View view = findViewById(R.id.drawer_layout);
-//        view.bringToFront();
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
                 (this, drawer, toolbar, R.string.open, R.string.close);
@@ -87,5 +83,4 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }
-
 }
