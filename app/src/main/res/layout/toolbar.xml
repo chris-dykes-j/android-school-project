@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:translationZ="5dp" >
+    android:translationZ="2dp" >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -31,7 +31,7 @@
             app:menu="@menu/drawer_menu"
             android:id="@+id/navBar"
             android:fitsSystemWindows="true"
-            android:visibility="visible"/>
+            android:visibility="visible" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

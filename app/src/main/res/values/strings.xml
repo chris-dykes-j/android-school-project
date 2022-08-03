@@ -28,6 +28,7 @@
     <string name="navWish">Wish List</string>
     <string name="navCart">Cart Activity</string>
     <string name="navCategories">Categories</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_event">Search Events</string>
+    <string name="events_wish_list">Event Wish List</string>
+    <string name="my_event_list">Event Cart</string>
 </resources>
