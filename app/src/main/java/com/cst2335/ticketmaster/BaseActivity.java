@@ -57,7 +57,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, CartActivity.class));
                 break;
             case R.id.fourth_item:
-                startActivity(new Intent(this, BrowseCate.class));
+                startActivity(new Intent(this, BrowseCateActivity.class));
                 break;
         }
         return true;
@@ -76,7 +76,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, CartActivity.class));
                 break;
             case R.id.navCategories:
-                startActivity(new Intent(this, BrowseCate.class));
+                startActivity(new Intent(this, BrowseCateActivity.class));
                 break;
         }
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
