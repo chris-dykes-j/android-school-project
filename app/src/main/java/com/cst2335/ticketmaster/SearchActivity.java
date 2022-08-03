@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +28,6 @@ import java.util.concurrent.ExecutionException;
 
 // Need Progress Bar (from Di)
 
-// Add navigation to Toolbar
 // The top navigation layout should have the Activity’s title, author, and version number
 // Add fragment for search results (make event activity a fragment?)
 // Help menu item with alert dialog (instructions) use an about icon
@@ -45,7 +46,8 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setLayout(R.layout.activity_search);
+        // super.setLayout(R.layout.activity_search);
+        setContentView(R.layout.activity_search);
 
         eventList = new ArrayList<>();
         adapter = new EventAdapter();
@@ -58,10 +60,9 @@ public class SearchActivity extends BaseActivity {
 
         // Test
         try {
-            String searchResult = searchEvents.execute().get();
-            eventList = parseJson(searchResult);
+            searchEvents.execute().get();
             adapter.notifyDataSetChanged();
-        } catch (ExecutionException | JSONException | InterruptedException e) {
+        } catch (ExecutionException | /* JSONException | */InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -189,6 +190,11 @@ public class SearchActivity extends BaseActivity {
         // Parse the JSON and make visible
         protected void onPostExecute(String result) {
             // Log.e("", result);
+            try {
+                eventList = parseJson(result);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity">
 
-    <include
+    <!-- <include
         android:id="@+id/include"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar" /> -->
 
     <TextView
         android:id="@+id/searchTitle"
@@ -19,8 +19,8 @@
         android:text="@string/searchTitle"
         android:textAlignment="center"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/searchInput"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintBottom_toTopOf="@+id/searchInput" />
+<!--        app:layout_constraintTop_toBottomOf="@+id/include" />-->
 
     <EditText
         android:id="@+id/searchInput"

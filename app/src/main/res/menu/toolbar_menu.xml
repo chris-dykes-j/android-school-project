@@ -6,7 +6,7 @@
         android:orderInCategory="100"
         android:title="@string/searchTitle"
         app:showAsAction="never"
-        android:icon="@drawable/search_w" />
+        android:icon="@drawable/search_w"/>
     <item
         android:id="@+id/second_item"
         android:orderInCategory="200"
