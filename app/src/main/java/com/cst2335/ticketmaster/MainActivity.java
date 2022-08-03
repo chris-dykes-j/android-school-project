@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //test
+            //test again
                 Intent intent = new Intent(MainActivity.this, BrowseCate.class);
                 startActivity(intent);
 
