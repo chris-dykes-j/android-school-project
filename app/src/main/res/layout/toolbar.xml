@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="start">
+    android:orientation="vertical"
+    android:translationZ="5dp" >
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        app:titleTextColor="@color/white"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        tools:openDrawer="left"
+        android:id="@+id/drawer_layout" >
+<!--        android:visibility="invisible" >-->
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            app:titleTextColor="@color/white"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
-
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:layout_width="240dp"
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            tools:openDrawer="left"
-            android:id="@+id/drawer_layout">
+            android:layout_gravity="start"
+            app:menu="@menu/drawer_menu"
+            android:id="@+id/navBar"
+            android:fitsSystemWindows="true"
+            android:visibility="visible"/>
 
-            <com.google.android.material.navigation.NavigationView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                app:menu="@menu/drawer_menu"
-                android:id="@+id/navBar"
-                android:fitsSystemWindows="true" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-        </androidx.drawerlayout.widget.DrawerLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

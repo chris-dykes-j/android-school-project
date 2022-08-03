@@ -27,6 +27,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         assert toolbar != null; // Nifty test.
 
+        // Not helping...
 //        View view = findViewById(R.id.drawer_layout);
 //        view.bringToFront();
 
