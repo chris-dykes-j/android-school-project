@@ -221,15 +221,6 @@ public class BC_EventDetailActivity extends AppCompatActivity implements Navigat
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
 
-        if ( message != null ) {
-            if ( message == "A") {
-                Intent intent = new Intent(BC_EventDetailActivity.this,StarListActivity.class);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(this, "NavigationDrawer: " + message, Toast.LENGTH_LONG).show();
-            }
-        }
         return false;
     }
 
