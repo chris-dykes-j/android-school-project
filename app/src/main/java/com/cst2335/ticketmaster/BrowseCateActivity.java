@@ -1,6 +1,6 @@
 package com.cst2335.ticketmaster;
 
-import androidx.appcompat.app.ActionBar;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.Toast;
+
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -125,7 +125,6 @@ public class BrowseCateActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onNavigationItemSelected( MenuItem item) {
 
-        String message = null;
 
         switch(item.getItemId())
         {
@@ -146,15 +145,6 @@ public class BrowseCateActivity extends AppCompatActivity implements NavigationV
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
 
-        if ( message != null ) {
-            if ( message == "A") {
-                Intent intent = new Intent(BrowseCateActivity.this,StarListActivity.class);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(this, "NavigationDrawer: " + message, Toast.LENGTH_LONG).show();
-            }
-        }
         return false;
     }
 

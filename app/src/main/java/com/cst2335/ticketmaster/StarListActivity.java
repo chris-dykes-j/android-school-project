@@ -350,14 +350,6 @@ public class StarListActivity extends AppCompatActivity implements NavigationVie
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
 
-        if ( message != null ) {
-            if ( message == "A") {
-
-            }
-            else {
-                Toast.makeText(this, "NavigationDrawer: " + message, Toast.LENGTH_LONG).show();
-            }
-        }
         return false;
     }
 }
