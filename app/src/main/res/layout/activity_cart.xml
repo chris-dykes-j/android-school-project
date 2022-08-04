@@ -23,25 +23,12 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+           <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="590dp"
+            android:id="@+id/cartList"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cartText"/>
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="590dp"
-        android:id="@+id/cartList"/>
-
-    </LinearLayout>
 
 
     <FrameLayout
