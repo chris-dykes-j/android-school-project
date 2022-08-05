@@ -2,6 +2,7 @@ package com.cst2335.ticketmaster;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
