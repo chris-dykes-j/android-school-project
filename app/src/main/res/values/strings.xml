@@ -69,4 +69,5 @@
     <string name="musicBTN">MUSIC</string>
     <string name="backBtn">BACK</string>
     <string name="buyBtn">BUY</string>
+    <string name="eventTitle">Event</string>
 </resources>

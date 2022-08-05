@@ -19,7 +19,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Sets the layout and adds a toolbar to the activity.
-     * Make sure that your layout has the needed toolbar xml
+     * Make sure that your layout has the needed toolbar xml.
      * @param layoutId The layout with a toolbar. Need's to have a toolbar or toolbar will return null.
      */
     protected void setLayout(int layoutId) {

@@ -16,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class SearchEventActivity extends AppCompatActivity {
+public class SearchEventActivity extends BaseActivity {
 
     private static final String TAG = "SearchEventActivity";
     private static final String TABLE_NAME = "Events";
@@ -24,7 +24,7 @@ public class SearchEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
+        setLayout(R.layout.activity_event);
 
         EventOpener helper = new EventOpener(this);
         SQLiteDatabase database = helper.getWritableDatabase();
