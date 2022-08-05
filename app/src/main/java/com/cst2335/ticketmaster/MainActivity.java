@@ -47,7 +47,6 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-
         // 4. Browse Categories (Di)
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +54,6 @@ public class MainActivity extends BaseActivity {
             //test again
                 Intent intent = new Intent(MainActivity.this, BrowseCateActivity.class);
                 startActivity(intent);
-
             }
         });
     }
