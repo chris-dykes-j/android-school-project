@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:translationZ="2dp" >
+    android:orientation="vertical" >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -18,20 +17,18 @@
         android:theme="?attr/actionBarTheme" />
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:openDrawer="left"
         android:id="@+id/drawer_layout" >
-<!--        android:visibility="invisible" >-->
 
         <com.google.android.material.navigation.NavigationView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:menu="@menu/drawer_menu"
             android:id="@+id/navBar"
-            android:fitsSystemWindows="true"
-            android:visibility="visible" />
+            android:fitsSystemWindows="true" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

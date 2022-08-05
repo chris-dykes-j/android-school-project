@@ -2,6 +2,7 @@ package com.cst2335.ticketmaster;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -18,8 +19,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Sets the layout and adds a toolbar to the activity.
-     * Make sure that your layout has: <include layout="@layout/toolbar" />
-     * @param layoutId The layout with the toolbar. Needed otherwise toolbar will be null.
+     * Make sure that your layout has the needed toolbar xml
+     * @param layoutId The layout with a toolbar. Need's to have a toolbar or toolbar will return null.
      */
     protected void setLayout(int layoutId) {
         setContentView(layoutId);
@@ -29,7 +30,18 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
-                (this, drawer, toolbar, R.string.open, R.string.close);
+                (this, drawer, toolbar, R.string.open, R.string.close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                findViewById(R.id.include).setTranslationZ(5);
+                super.onDrawerOpened(drawerView);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                findViewById(R.id.include).setTranslationZ(-5);
+                super.onDrawerClosed(drawerView);
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -78,9 +90,24 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             case R.id.navCategories:
                 startActivity(new Intent(this, BrowseCateActivity.class));
                 break;
+            case R.id.navHome:
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+            case R.id.navAbout:
+                aboutAlert();
+                break;
         }
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    private void aboutAlert() {
+        AlertDialog.Builder build = new AlertDialog.Builder(this);
+        build.setTitle(R.string.dialog_title)
+            .setMessage(R.string.alert_message)
+            .setNegativeButton(R.string.alert_cancel, (dialog, click1)->{ })
+            .setPositiveButton(R.string.alert_confirm, (dialog, click2)->{ })
+            .create().show();
     }
 }

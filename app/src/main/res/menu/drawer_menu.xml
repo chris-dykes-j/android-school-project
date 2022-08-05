@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/navHome"
+        android:icon="@drawable/home"
+        android:title="@string/menu_home"
+        app:showAsAction="always"
+        android:orderInCategory="5"/>
+    <item
         android:id="@+id/navSearch"
         android:icon="@drawable/search"
         android:title="@string/navSearch"
@@ -25,4 +31,10 @@
         android:title="@string/navCategories"
         app:showAsAction="ifRoom"
         android:orderInCategory="40" />
+    <item
+        android:id="@+id/navAbout"
+        android:icon="@drawable/about"
+        android:title="@string/menu_item_help"
+        app:showAsAction="always"
+        android:orderInCategory="50" />
 </menu>
