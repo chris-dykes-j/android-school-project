@@ -33,7 +33,8 @@
         <entry key="app/src/main/res/layout/fragment_my_wish_fragment.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/layout/my_cart_list.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/layout/my_sub_list.xml" value="0.11574074074074074" />
-        <entry key="app/src/main/res/layout/my_wish_list.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/layout/my_wish_list.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/toolbar.xml" value="0.12462006079027356" />
       </map>
     </option>
   </component>
