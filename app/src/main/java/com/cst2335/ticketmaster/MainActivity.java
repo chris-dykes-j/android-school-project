@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends BaseActivity {
-    Button btn1,btn2,btn3,btn4;
+    ImageButton btn1,btn2,btn3,btn4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +52,8 @@ public class MainActivity extends BaseActivity {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // add activity.
-                Intent intent = new Intent(MainActivity.this, BrowseCate.class);
+            //test again
+                Intent intent = new Intent(MainActivity.this, BrowseCateActivity.class);
                 startActivity(intent);
 
             }

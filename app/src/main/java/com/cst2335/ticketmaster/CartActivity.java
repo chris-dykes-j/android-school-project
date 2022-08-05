@@ -2,6 +2,50 @@ package com.cst2335.ticketmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+
+public class CartActivity extends AppCompatActivity {
+
+    ListView listView;
+    TextView textView;
+
+    EventOpener dbHelper;
+    SQLiteDatabase db = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cart);
+
+        ListView listView = (ListView) findViewById(R.id.cartList);
+
+        dbHelper = new EventOpener( this);
+        db = dbHelper.getWritableDatabase();
+
+        String sql = "select * from Events;";
+        Cursor c = db.rawQuery(sql, null);
+        String[] strs = new String[]{dbHelper.COL_NAME,dbHelper.COL_TYPE, dbHelper.COL_DATE, dbHelper.COL_PRICE };
+        int[] ints = new int[]{R.id.cartText};
+
+        SimpleCursorAdapter adapter = null;
+        adapter = new SimpleCursorAdapter(listView.getContext(), R.layout.my_cart_list, c, strs, ints, 0);
+
+        listView.setAdapter(adapter);
+
+    }
+}
+
+/**package com.cst2335.ticketmaster;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -117,5 +161,8 @@ public class CartActivity extends AppCompatActivity  {
                 textView.setText(ticket.getName() + "/" + ticket.getStatus() + "/" + ticket.getStartDate());
                 return newView;
             }
+
+
         }
     }
+*/
