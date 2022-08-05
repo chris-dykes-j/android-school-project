@@ -7,19 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-<<<<<<< HEAD
             <value value="$USER_HOME$/.android/avd/Nexus_5X_API_27.avd" />
-=======
-            <value value="C:\Users\qazpp\.android\avd\Copy_of_10.1_WXGA_Tablet_API_22.avd" />
->>>>>>> 80d48e456e7ad0ec1de47cf2b3bde17f61dba9bc
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-<<<<<<< HEAD
-    <timeTargetWasSelectedWithDropDown value="2022-08-01T18:09:11.856182Z" />
-=======
-    <timeTargetWasSelectedWithDropDown value="2022-08-04T03:20:33.743108100Z" />
->>>>>>> 80d48e456e7ad0ec1de47cf2b3bde17f61dba9bc
+    <timeTargetWasSelectedWithDropDown value="2022-08-05T15:50:14.288497Z" />
   </component>
 </project>
