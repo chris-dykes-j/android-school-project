@@ -1,6 +1,7 @@
 package com.cst2335.ticketmaster;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,24 +30,19 @@ import java.util.concurrent.ExecutionException;
 // Need Progress Bar (from Di)
 
 // The top navigation layout should have the Activity’s title, author, and version number
-// Help menu item with alert dialog (instructions) use an about icon
-
-// Shared preferences. Previous search, and for WishList recommendation list.
-// Translate strings to french at the end.
 // JavaDoc comments
-// Style GUI at the end
 
 public class SearchActivity extends BaseActivity {
 
     private static final String TAG = "SearchActivity";
     private ArrayList<Events> eventList;
     private EventAdapter adapter;
+    public final static String PREVIOUS_SEARCH = "Search Data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setLayout(R.layout.activity_search);
-        // setContentView(R.layout.activity_search);
 
         eventList = new ArrayList<>();
         adapter = new EventAdapter();
@@ -61,7 +57,7 @@ public class SearchActivity extends BaseActivity {
         try {
             searchEvents.execute().get();
             adapter.notifyDataSetChanged();
-        } catch (ExecutionException | /* JSONException | */InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -77,6 +73,11 @@ public class SearchActivity extends BaseActivity {
                 }
                 eventList = parseJson(searchResult);
                 adapter.notifyDataSetChanged();
+
+                SharedPreferences preferences = getSharedPreferences(SearchActivity.PREVIOUS_SEARCH, MODE_PRIVATE);
+                SharedPreferences.Editor writer = preferences.edit();
+                writer.putString("searchQuery", searchQuery.getText().toString()).apply();
+
             } catch (ExecutionException | JSONException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -87,6 +88,12 @@ public class SearchActivity extends BaseActivity {
             goToItem.putExtra("Event", eventList.get(pos));
             startActivity(goToItem);
         });
+
+        // Little extra
+        SharedPreferences prefs = getSharedPreferences(SearchActivity.PREVIOUS_SEARCH, MODE_PRIVATE);
+        String previous = prefs.getString("searchQuery", "");
+        searchQuery.setText(previous);
+
     }
 
     private ArrayList<Events> parseJson(String input) throws JSONException {

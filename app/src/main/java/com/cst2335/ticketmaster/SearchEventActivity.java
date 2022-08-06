@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,6 +50,8 @@ public class SearchEventActivity extends BaseActivity {
 
         wish.setOnClickListener(v -> eventAlert(database, event, "W"));
         cart.setOnClickListener(v -> eventAlert(database, event, "C"));
+
+
     }
 
     private void addEvent(SQLiteDatabase database, Events event, String type) {
