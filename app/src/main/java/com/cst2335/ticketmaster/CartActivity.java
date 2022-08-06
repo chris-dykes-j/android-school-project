@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 public class CartActivity extends AppCompatActivity {
 
+    ListView listView;
+    TextView textView;
+
     EventOpener dbHelper;
     SQLiteDatabase db = null;
 
