@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +33,15 @@ import java.util.concurrent.ExecutionException;
 // The top navigation layout should have the Activity’s title, author, and version number
 // JavaDoc comments
 
+/**
+ * Activity to search for various Ticket Master Events.
+ */
 public class SearchActivity extends BaseActivity {
 
     private static final String TAG = "SearchActivity";
     private ArrayList<Events> eventList;
     private EventAdapter adapter;
-    public final static String PREVIOUS_SEARCH = "Search Data";
+    private final static String PREVIOUS_SEARCH = "Search Data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,7 @@ public class SearchActivity extends BaseActivity {
                 eventList = parseJson(searchResult);
                 adapter.notifyDataSetChanged();
 
+                // More shared prefs
                 SharedPreferences preferences = getSharedPreferences(SearchActivity.PREVIOUS_SEARCH, MODE_PRIVATE);
                 SharedPreferences.Editor writer = preferences.edit();
                 writer.putString("searchQuery", searchQuery.getText().toString()).apply();
@@ -89,11 +94,10 @@ public class SearchActivity extends BaseActivity {
             startActivity(goToItem);
         });
 
-        // Little extra
+        // Shared prefs
         SharedPreferences prefs = getSharedPreferences(SearchActivity.PREVIOUS_SEARCH, MODE_PRIVATE);
         String previous = prefs.getString("searchQuery", "");
         searchQuery.setText(previous);
-
     }
 
     private ArrayList<Events> parseJson(String input) throws JSONException {
@@ -157,13 +161,20 @@ public class SearchActivity extends BaseActivity {
     }
 
     // I like inner classes.
-    private class EventSearch extends AsyncTask<String, String, String> {
+    private class EventSearch extends AsyncTask<String, Integer, String> {
         private final String strUrl;
         private String receive;
+//        ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
 
-            EventSearch(String strUrl) {
-                this.strUrl = strUrl;
-            }
+        EventSearch(String strUrl) {
+            this.strUrl = strUrl;
+        }
+
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            progress.setMax(100);
+//            progress.setVisibility(View.VISIBLE);
+//        }
 
         // Get the JSON
         protected String doInBackground(String... args) {
@@ -189,15 +200,16 @@ public class SearchActivity extends BaseActivity {
             return receive;
         }
 
-        protected void onProgressUpdate(String ... progress) {
-
+        protected void onProgressUpdate(Integer ... values) {
+//            super.onProgressUpdate(values[0]);
+//            progress.setVisibility(values[0]);
         }
 
         // Parse the JSON and make visible
         protected void onPostExecute(String result) {
-            // Log.e("", result);
             try {
                 eventList = parseJson(result);
+//                progress.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

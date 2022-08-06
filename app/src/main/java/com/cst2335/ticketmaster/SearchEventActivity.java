@@ -17,6 +17,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Individual Event Activity that displays a given event after a search.
+ */
 public class SearchEventActivity extends BaseActivity {
 
     private static final String TAG = "SearchEventActivity";
@@ -31,7 +34,7 @@ public class SearchEventActivity extends BaseActivity {
         SQLiteDatabase database = helper.getWritableDatabase();
 
         Events event = (Events) getIntent().getSerializableExtra("Event");
-        Log.e(TAG, event.toString());
+//        Log.e(TAG, event.toString());
         TextView title = findViewById(R.id.eventTitle);
         TextView date = findViewById(R.id.searchEventDate);
         TextView price = findViewById(R.id.searchEventPrice);
@@ -50,8 +53,6 @@ public class SearchEventActivity extends BaseActivity {
 
         wish.setOnClickListener(v -> eventAlert(database, event, "W"));
         cart.setOnClickListener(v -> eventAlert(database, event, "C"));
-
-
     }
 
     private void addEvent(SQLiteDatabase database, Events event, String type) {

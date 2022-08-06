@@ -15,6 +15,10 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * Extended from AppCompatActivity, but also adds a toolbar, NavigationDrawer, and the necessary methods.
+ * Just more convenient.
+ */
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     /**
@@ -49,15 +53,24 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         nav.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * Creates a menu for the toolbar
+     * @param menu Menu to be added.
+     * @return Returns true.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
     }
 
+    /**
+     * Initiates activities for the menu items.
+     * @param item Menu item selected.
+     * @return Returns true.
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.first_item:
                 startActivity(new Intent(this, SearchActivity.class));
@@ -75,6 +88,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /**
+     * Initiates activities for the Navigation Items.
+     * @param item Navigation item selected.
+     * @return Returns false;
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -105,7 +123,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private void aboutAlert() {
         AlertDialog.Builder build = new AlertDialog.Builder(this);
         build.setTitle(R.string.dialog_title)
-            .setMessage(R.string.alert_message)
+            .setMessage(R.string.helpMessage)
             .setNegativeButton(R.string.alert_cancel, (dialog, click1)->{ })
             .setPositiveButton(R.string.alert_confirm, (dialog, click2)->{ })
             .create().show();
