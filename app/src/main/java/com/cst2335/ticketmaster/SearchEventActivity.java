@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,10 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class SearchEventActivity extends AppCompatActivity {
+/**
+ * Individual Event Activity that displays a given event after a search.
+ */
+public class SearchEventActivity extends BaseActivity {
 
     private static final String TAG = "SearchEventActivity";
     private static final String TABLE_NAME = "Events";
@@ -24,13 +28,13 @@ public class SearchEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
+        setLayout(R.layout.activity_event);
 
         EventOpener helper = new EventOpener(this);
         SQLiteDatabase database = helper.getWritableDatabase();
 
         Events event = (Events) getIntent().getSerializableExtra("Event");
-        Log.e(TAG, event.toString());
+//        Log.e(TAG, event.toString());
         TextView title = findViewById(R.id.eventTitle);
         TextView date = findViewById(R.id.searchEventDate);
         TextView price = findViewById(R.id.searchEventPrice);

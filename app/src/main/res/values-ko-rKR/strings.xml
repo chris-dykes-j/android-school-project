@@ -67,4 +67,5 @@
     <string name="musicBTN">음악</string>
     <string name="backBtn">돌아가기</string>
     <string name="buyBtn">구매</string>
+    <string name="eventTitle">이벤트</string>
 </resources>

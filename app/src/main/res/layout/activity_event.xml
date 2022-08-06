@@ -8,13 +8,21 @@
     android:orientation="vertical"
     tools:context=".SearchEventActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/eventTitle"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
-        android:text="Event"
+        android:text="@string/eventTitle"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
