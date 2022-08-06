@@ -1,26 +1,21 @@
 package com.cst2335.ticketmaster;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -31,7 +26,7 @@ public class WishFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String MYSUBCITY = "mySubCity";
     private static final String MYSUBTYPE = "mySubType";
-
+    private static final String MYPREFER = "myPrefer";
     // TODO: Rename and change types of parameters
     private String mySubCity;
     private String mySubType;
@@ -39,6 +34,7 @@ public class WishFragment extends Fragment {
     private TextView textView;
     private View newView;
     RecyclerView rView;
+    SharedPreferences sp;
 
     public WishFragment() {
     }
@@ -69,7 +65,9 @@ public class WishFragment extends Fragment {
 
         Log.i("mySubCity : ", mySubCity);
         Log.i("mySubType : ", mySubType);
+
         try {
+
             String resultText = new WishTask().execute("keyword=" + mySubType).get();
             Log.i("test", "GOOOD!!");
 

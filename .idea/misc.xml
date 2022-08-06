@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/drawable/round_corner.xml" value="0.1505" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_event.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_event_detail.xml" value="0.19655797101449277" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_search.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/chris/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/activity_wish_list.xml" value="0.161231884057971" />
@@ -42,7 +43,23 @@
         <entry key="..\:/Users/qazpp/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/my_wish_list.xml" value="0.1" />
         <entry key="..\:/Users/qazpp/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/row_layout.xml" value="0.1" />
         <entry key="..\:/Users/qazpp/AndroidStudioProjects/CST2335_GroupAssignment/app/src/main/res/layout/toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_browse_cate.xml" value="0.12462006079027356" />
+        <entry key="app/src/main/res/layout/activity_event_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18432971014492755" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.12462006079027356" />
+        <entry key="app/src/main/res/layout/activity_wish_list.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/layout/fragment_cart_total.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_details.xml" value="0.12462006079027356" />
+        <entry key="app/src/main/res/layout/fragment_my_wish_fragment.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/layout/header_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/my_cart_list.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/layout/my_sub_list.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/layout/my_wish_list.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/search_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/toolbar.xml" value="0.12462006079027356" />
+        <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.25625" />
+        <entry key="app/src/main/res/menu/menu_items.xml" value="0.25625" />
+        <entry key="app/src/main/res/menu/toolbar_menu.xml" value="0.25625" />
       </map>
     </option>
   </component>

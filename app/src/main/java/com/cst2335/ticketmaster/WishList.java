@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -26,7 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class WishList extends AppCompatActivity {
+public class WishList extends BaseActivity {
     ArrayList<Events> events = new ArrayList<>();
     WishListAdapter wishListAdapter;
     EventOpener helper;
@@ -34,12 +35,15 @@ public class WishList extends AppCompatActivity {
     Cursor cursor;
     WishFragment wishFm;
     Bundle bundle;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("BaseActivity", "Testing");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
         ListView listView = findViewById(R.id.myWishList);
+        progressBar = (ProgressBar) findViewById(R.id.myList_progressBar);
         listView.setAdapter(wishListAdapter = new WishListAdapter());
         helper = new EventOpener(this);
         db = helper.getWritableDatabase();
@@ -51,8 +55,7 @@ public class WishList extends AppCompatActivity {
         int cityIndex = cursor.getColumnIndex(helper.COL_LOCATION);
         int startDateIndex = cursor.getColumnIndex(helper.COL_DATE);
         int categoryIndex = cursor.getColumnIndex(helper.COL_CATEGORY);
-
-
+        int i = 10;
         // cursor is pointing to row - 1
         // keep looping until no more data
         while (cursor.moveToNext()) {
@@ -62,10 +65,17 @@ public class WishList extends AppCompatActivity {
             String city = cursor.getString(cityIndex);
             String startDate = cursor.getString(startDateIndex);
             String category = cursor.getString(categoryIndex);
-
             events.add(new Events(name, category, id + "", "", imgUrl, startDate, "", city));
-
+            Log.i("progressbar",cursor.getPosition() * i+"");
+            try {
+                progressBar.setProgress(cursor.getPosition() * i);
+            } catch (NumberFormatException e) {
+                Log.i("Nullpoint", e.getMessage());
+            }
         }
+
+        progressBar.setProgress(100);
+
         listView.setOnItemClickListener((p, b, position, id) -> {
             Events clickedEvent = events.get(position);
             wishFm = new WishFragment();
@@ -185,12 +195,6 @@ public class WishList extends AppCompatActivity {
         }
     }
 
-    private void eventSnack(SQLiteDatabase database, Events event) {
-//        Snackbar snack = Snackbar.make(findViewById(R.id.activity_wish_list), R.string.searchSnack, Snackbar.LENGTH_LONG)
-//                .setAction(R.string.searchUndo, e ->
-//                        database.delete(helper.TABLE_NAME, "_id=?", new String[] { event.getId() }));
-//        snack.show();
-    }
 
 }
 

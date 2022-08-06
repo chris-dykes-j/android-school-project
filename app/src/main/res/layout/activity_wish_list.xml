@@ -6,15 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".WishList">
+<!--    <include-->
+<!--        android:id="@+id/include"-->
+<!--        layout="@layout/toolbar"-->
+<!--        android:clickable="true"/>-->
+    <ProgressBar
+        android:id="@+id/myList_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"/>
 
-    <!-- <ActionMenuView-->
-    <!--     android:layout_width="wrap_content"-->
-    <!--     android:layout_height="wrap_content"/>-->
-    <!--    <Button-->
-    <!--        android:id="@+id/wish_btn1"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="AddSampleData"/>-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,5 +53,6 @@
         android:layout_marginLeft="4dp"
         android:layout_marginBottom="0dp"
         android:layout_toRightOf="@id/myWishList" />
+
 
 </LinearLayout>

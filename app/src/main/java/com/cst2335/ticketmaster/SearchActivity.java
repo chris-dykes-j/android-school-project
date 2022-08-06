@@ -1,6 +1,7 @@
 package com.cst2335.ticketmaster;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,24 +31,22 @@ import java.util.concurrent.ExecutionException;
 // Need Progress Bar (from Di)
 
 // The top navigation layout should have the Activity’s title, author, and version number
-// Help menu item with alert dialog (instructions) use an about icon
-
-// Shared preferences. Previous search, and for WishList recommendation list.
-// Translate strings to french at the end.
 // JavaDoc comments
-// Style GUI at the end
 
+/**
+ * Activity to search for various Ticket Master Events.
+ */
 public class SearchActivity extends BaseActivity {
 
     private static final String TAG = "SearchActivity";
     private ArrayList<Events> eventList;
     private EventAdapter adapter;
+    private final static String PREVIOUS_SEARCH = "Search Data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setLayout(R.layout.activity_search);
-        // setContentView(R.layout.activity_search);
 
         eventList = new ArrayList<>();
         adapter = new EventAdapter();
@@ -61,7 +61,7 @@ public class SearchActivity extends BaseActivity {
         try {
             searchEvents.execute().get();
             adapter.notifyDataSetChanged();
-        } catch (ExecutionException | /* JSONException | */InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -77,6 +77,12 @@ public class SearchActivity extends BaseActivity {
                 }
                 eventList = parseJson(searchResult);
                 adapter.notifyDataSetChanged();
+
+                // More shared prefs
+                SharedPreferences preferences = getSharedPreferences(SearchActivity.PREVIOUS_SEARCH, MODE_PRIVATE);
+                SharedPreferences.Editor writer = preferences.edit();
+                writer.putString("searchQuery", searchQuery.getText().toString()).apply();
+
             } catch (ExecutionException | JSONException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -87,6 +93,11 @@ public class SearchActivity extends BaseActivity {
             goToItem.putExtra("Event", eventList.get(pos));
             startActivity(goToItem);
         });
+
+        // Shared prefs
+        SharedPreferences prefs = getSharedPreferences(SearchActivity.PREVIOUS_SEARCH, MODE_PRIVATE);
+        String previous = prefs.getString("searchQuery", "");
+        searchQuery.setText(previous);
     }
 
     private ArrayList<Events> parseJson(String input) throws JSONException {
@@ -150,13 +161,20 @@ public class SearchActivity extends BaseActivity {
     }
 
     // I like inner classes.
-    private class EventSearch extends AsyncTask<String, String, String> {
+    private class EventSearch extends AsyncTask<String, Integer, String> {
         private final String strUrl;
         private String receive;
+//        ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
 
-            EventSearch(String strUrl) {
-                this.strUrl = strUrl;
-            }
+        EventSearch(String strUrl) {
+            this.strUrl = strUrl;
+        }
+
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            progress.setMax(100);
+//            progress.setVisibility(View.VISIBLE);
+//        }
 
         // Get the JSON
         protected String doInBackground(String... args) {
@@ -182,15 +200,16 @@ public class SearchActivity extends BaseActivity {
             return receive;
         }
 
-        protected void onProgressUpdate(String ... progress) {
-
+        protected void onProgressUpdate(Integer ... values) {
+//            super.onProgressUpdate(values[0]);
+//            progress.setVisibility(values[0]);
         }
 
         // Parse the JSON and make visible
         protected void onPostExecute(String result) {
-            // Log.e("", result);
             try {
                 eventList = parseJson(result);
+//                progress.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
