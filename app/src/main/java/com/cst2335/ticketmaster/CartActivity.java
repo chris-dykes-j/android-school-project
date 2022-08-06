@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ public class CartActivity extends AppCompatActivity {
 
     EventOpener dbHelper;
     SQLiteDatabase db = null;
+    CartTotalFragment cartTotalFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,21 @@ public class CartActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
+         cartTotalFragment = new CartTotalFragment();
+
+         Button button = (Button) findViewById(R.id.total);
+         button.setOnClickListener(new View.OnClickListener(){
+             @Override
+             public void onClick(View view){
+                 getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
+             }
+         });
+
+    }
+    public void onChangeFragment(int index) {
+        if (index == 0) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
+        }
     }
 }
 
