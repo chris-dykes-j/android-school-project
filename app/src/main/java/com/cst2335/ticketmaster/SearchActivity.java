@@ -15,8 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,8 +26,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-// Need Progress Bar (from Di)
-
+// TODO
+// Need to fix progress bar
 // The top navigation layout should have the Activity’s title, author, and version number
 // JavaDoc comments
 
@@ -68,7 +66,7 @@ public class SearchActivity extends BaseActivity {
         searchButton.setOnClickListener(view -> {
             try {
                 String keyWord = searchQuery.getText().toString();
-                String searchResult = "";
+                String searchResult;
                 if (!keyWord.equals(""))
                     searchResult = new EventSearch("https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb&keyword=" + keyWord).execute().get();
                 else {
@@ -216,9 +214,11 @@ public class SearchActivity extends BaseActivity {
         }
     }
 
-    // Leaving this here so that the activities don't get too crowded.
+    /**
+     * Adapter for search activity. Deals with the list of events found.
+     */
     private class EventAdapter extends BaseAdapter {
-
+        
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
