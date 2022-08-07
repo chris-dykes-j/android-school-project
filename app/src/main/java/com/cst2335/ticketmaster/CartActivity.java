@@ -1,8 +1,10 @@
 package com.cst2335.ticketmaster;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,13 +35,13 @@ public class CartActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.cartList);
 
-        dbHelper = new EventOpener( this);
+        dbHelper = new EventOpener(this);
         db = dbHelper.getWritableDatabase();
 
-        String sql = "select * from Events;";
+        String sql = "select * from Events WHERE Type = 'C';";
         Cursor c = db.rawQuery(sql, null);
-        String[] strs = new String[]{dbHelper.COL_NAME,dbHelper.COL_TYPE, dbHelper.COL_DATE, dbHelper.COL_PRICE };
-        int[] ints = new int[]{ R.id.cartText};
+        String[] strs = new String[]{dbHelper.COL_NAME};
+        int[] ints = new int[]{R.id.cartText};
 
         SimpleCursorAdapter adapter = null;
         adapter = new SimpleCursorAdapter(listView.getContext(), R.layout.my_cart_list, c, strs, ints, 0);
@@ -49,34 +51,58 @@ public class CartActivity extends AppCompatActivity {
         tv.setTextSize(15);
 
 
+        //How to
+        Button howBtn = (Button) findViewById(R.id.howto);
+        howBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+
+                builder.setTitle("How to use");
+                builder.setMessage("It is a Cart page. If you want to check total price, touch Total button, and touch payment to process the payment");
+                builder.setPositiveButton("Thanks", null);
+
+                builder.create().show();
+
+            }
+
+
+        });
+
+
+
         //fragment connect
-         cartTotalFragment = new CartTotalFragment();
+        cartTotalFragment = new CartTotalFragment();
 
-         Button button = (Button) findViewById(R.id.total);
-         button.setOnClickListener(new View.OnClickListener(){
-             @SuppressLint("Range")
-             @Override
-             public void onClick(View view) {
+        Button button = (Button) findViewById(R.id.total);
+        button.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("Range")
+            @Override
+            public void onClick(View view) {
 
-                 getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
 
-                 Cursor cursor = db.rawQuery("SELECT SUM(" + dbHelper.COL_PRICE + ") as Total FROM " + dbHelper.TABLE_NAME, null);
+                Cursor cursor = db.rawQuery("SELECT SUM(" + dbHelper.COL_PRICE + ") as Total FROM " + dbHelper.TABLE_NAME + " WHERE Type='C' ", null);
 
-                 if (cursor.moveToFirst()) {
+                if (cursor.moveToFirst()) {
 
-                     int total = cursor.getInt(cursor.getColumnIndex("Total"));
+                    int total = cursor.getInt(cursor.getColumnIndex("Total"));
 
-                     String t1 = String.valueOf(total);
-                     Log.i("test", t1);
-
-                     tv.setText(""+ total);
-                 }
+                    Log.i("test", cursor.getColumnIndex("Total") + "");
+                    Log.i("test", total + "");
 
 
-             }
+                    tv.setText("" + total);
+                }
 
 
-         });
+            }
+
+
+        });
+
+
 
 
 
