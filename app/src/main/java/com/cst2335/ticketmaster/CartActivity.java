@@ -3,6 +3,7 @@ package com.cst2335.ticketmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,12 +19,12 @@ import org.w3c.dom.Text;
 
 public class CartActivity extends AppCompatActivity {
 
-    ListView listView;
-    TextView textView;
+
 
     EventOpener dbHelper;
     SQLiteDatabase db = null;
     CartTotalFragment cartTotalFragment;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +39,15 @@ public class CartActivity extends AppCompatActivity {
         String sql = "select * from Events;";
         Cursor c = db.rawQuery(sql, null);
         String[] strs = new String[]{dbHelper.COL_NAME,dbHelper.COL_TYPE, dbHelper.COL_DATE, dbHelper.COL_PRICE };
-        int[] ints = new int[]{R.id.cartText};
+        int[] ints = new int[]{ R.id.cartText};
 
         SimpleCursorAdapter adapter = null;
         adapter = new SimpleCursorAdapter(listView.getContext(), R.layout.my_cart_list, c, strs, ints, 0);
 
         listView.setAdapter(adapter);
+        TextView tv = (TextView) findViewById(R.id.testTotal);
+        tv.setTextSize(15);
+
 
         //fragment connect
          cartTotalFragment = new CartTotalFragment();
@@ -56,7 +60,6 @@ public class CartActivity extends AppCompatActivity {
 
                  getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
 
-                 TextView tv = (TextView)findViewById(R.id.cartText);
                  Cursor cursor = db.rawQuery("SELECT SUM(" + dbHelper.COL_PRICE + ") as Total FROM " + dbHelper.TABLE_NAME, null);
 
                  if (cursor.moveToFirst()) {
