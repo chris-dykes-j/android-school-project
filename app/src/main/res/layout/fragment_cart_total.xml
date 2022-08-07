@@ -10,7 +10,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="total"/>
+        android:text="Total"
+        android:id="@+id/cartTextFg"/>
 
     <TextView
         android:id="@+id/cartTotal"

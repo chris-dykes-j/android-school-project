@@ -2,6 +2,7 @@ package com.cst2335.ticketmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -42,30 +45,43 @@ public class CartActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-
         //fragment connect
          cartTotalFragment = new CartTotalFragment();
 
          Button button = (Button) findViewById(R.id.total);
          button.setOnClickListener(new View.OnClickListener(){
+             @SuppressLint("Range")
              @Override
-             public void onClick(View view){
-
+             public void onClick(View view) {
 
                  getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
 
+                 TextView tv = (TextView)findViewById(R.id.cartText);
+                 Cursor cursor = db.rawQuery("SELECT SUM(" + dbHelper.COL_PRICE + ") as Total FROM " + dbHelper.TABLE_NAME, null);
 
+                 if (cursor.moveToFirst()) {
 
+                     int total = cursor.getInt(cursor.getColumnIndex("Total"));
+
+                     String t1 = String.valueOf(total);
+                     Log.i("test", t1);
+
+                     tv.setText(""+ total);
+                 }
 
 
              }
 
+
          });
+
+
 
     }
 
     public void onChangeFragment(int index) {
         if (index == 0) {
+
             getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
         }
 
