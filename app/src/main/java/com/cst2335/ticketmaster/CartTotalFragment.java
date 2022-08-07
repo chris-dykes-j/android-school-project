@@ -61,21 +61,24 @@ public class CartTotalFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         Intent intent = new Intent(getActivity(), PaymentEmptyActivity.class);
-                        startActivity(intent);
+                        ((CartActivity) getActivity()).startActivity(intent);
 
                     }
 
                 });
-
-                    AlertDialog ad = builder.create();
-                    ad.show();
 
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+
+
                     }
                 });
+
+                AlertDialog ad = builder.create();
+                ad.show();
+
             }
         });
 
