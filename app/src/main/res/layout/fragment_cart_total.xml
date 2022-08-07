@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CartTotalFragment">
+    tools:context=".CartTotalFragment"
+    android:orientation="vertical">
 
 
     <TextView
@@ -11,5 +12,10 @@
         android:layout_height="wrap_content"
         android:text="total"/>
 
+    <TextView
+        android:id="@+id/cartTotal"
+        android:layout_width="125dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="50dp"/>
 
 </FrameLayout>
