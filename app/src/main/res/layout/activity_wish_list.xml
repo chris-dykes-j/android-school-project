@@ -1,58 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".WishList">
-<!--    <include-->
-<!--        android:id="@+id/include"-->
-<!--        layout="@layout/toolbar"-->
-<!--        android:clickable="true"/>-->
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ProgressBar
         android:id="@+id/myList_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="100"/>
+        android:max="100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08"
+        tools:ignore="MissingConstraints" />
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/wishIcon1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/favs"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintLeft_toLeftOf="@id/myList_progressBar"
+        app:layout_constraintRight_toRightOf="@id/myList_progressBar"
+        app:layout_constraintTop_toBottomOf="@id/myList_progressBar"
+        app:layout_constraintTop_toTopOf="@id/myList_progressBar"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/wishTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:text="@string/wish_title"
+        android:textSize="30dp"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintRight_toRightOf="@id/myList_progressBar"
+        app:layout_constraintTop_toBottomOf="@id/myList_progressBar"
+        app:layout_constraintTop_toTopOf="@id/myList_progressBar"
+        app:layout_constraintLeft_toRightOf="@id/wishIcon1"
+        tools:ignore="MissingConstraints" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/favs" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wish_title"
-            android:textSize="30dp" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/favs" />
-    </LinearLayout>
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/favs"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintRight_toRightOf="@id/myList_progressBar"
+        app:layout_constraintTop_toBottomOf="@id/myList_progressBar"
+        app:layout_constraintTop_toTopOf="@id/myList_progressBar"
+        app:layout_constraintLeft_toRightOf="@id/wishTitle"
+        tools:ignore="MissingConstraints" />
 
     <ListView
         android:id="@+id/myWishList"
         android:layout_width="wrap_content"
-        android:layout_height="460dp" />
+        android:layout_height="400dp"
+        app:layout_constraintTop_toBottomOf="@id/wishTitle"
+        tools:ignore="MissingConstraints" />
 
     <FrameLayout
         android:id="@+id/myFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="4dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toRightOf="@id/myWishList" />
+        app:layout_constraintTop_toBottomOf="@id/myWishList"
+        tools:ignore="MissingConstraints" />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
