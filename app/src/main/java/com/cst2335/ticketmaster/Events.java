@@ -1,22 +1,24 @@
 package com.cst2335.ticketmaster;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
  * The Event class, with all the information about various events.
  */
 public class Events implements Serializable {
-    private String name;
-    private String type;
-    private String id;
-    private String url;
-    private String imgUrl;
-    private String startDate;
-    private String status;
-    private String city;
-    private Double price;   // price for tickets
-    private Integer ticketNum; //number of tickets
-    private String isActive; //Y: active N: deleted
+    private final String name;
+    private final String type;
+    private final String id;
+    private final String url;
+    private final String imgUrl;
+    private final String startDate;
+    private final String status;
+    private final String city;
+    private final Double price;   // price for tickets
+    private final Integer ticketNum; //number of tickets
+    private final String isActive; //Y: active N: deleted
 
     /**
      * Constructor for the Event Class
@@ -287,6 +289,7 @@ public class Events implements Serializable {
      * Event to String method, mostly for debugging.
      * @return String with event info.
      */
+    @NonNull
     @Override
     public String toString() {
         return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s",

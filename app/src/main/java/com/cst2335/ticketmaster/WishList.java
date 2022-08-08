@@ -41,7 +41,7 @@ public class WishList extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("BaseActivity", "Testing");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wish_list);
+        super.setLayout(R.layout.activity_wish_list);
         ListView listView = findViewById(R.id.myWishList);
         progressBar = (ProgressBar) findViewById(R.id.myList_progressBar);
         listView.setAdapter(wishListAdapter = new WishListAdapter());
