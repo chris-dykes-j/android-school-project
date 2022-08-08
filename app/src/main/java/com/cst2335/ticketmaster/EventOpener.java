@@ -1,11 +1,14 @@
 package com.cst2335.ticketmaster;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
 
 /**
  * Creates a database, and Events table for the Application.
@@ -62,4 +65,6 @@ public class EventOpener extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         database.execSQL(QUERY);
     }
+
+
 }

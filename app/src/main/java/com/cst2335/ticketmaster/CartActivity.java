@@ -1,37 +1,56 @@
 package com.cst2335.ticketmaster;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CartActivity extends AppCompatActivity {
 
-    ListView listView;
-    TextView textView;
-
     EventOpener dbHelper;
     SQLiteDatabase db = null;
+    CartTotalFragment cartTotalFragment;
+    private LayoutInflater inflater;
+    private View header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        // Cart List
         ListView listView = (ListView) findViewById(R.id.cartList);
 
-        dbHelper = new EventOpener( this);
+        dbHelper = new EventOpener(this);
         db = dbHelper.getWritableDatabase();
 
-        String sql = "select * from Events;";
+        String sql = "select * from Events WHERE Type = 'C';";
         Cursor c = db.rawQuery(sql, null);
-        String[] strs = new String[]{dbHelper.COL_NAME,dbHelper.COL_TYPE, dbHelper.COL_DATE, dbHelper.COL_PRICE };
+        String[] strs = new String[]{dbHelper.COL_NAME};
         int[] ints = new int[]{R.id.cartText};
 
         SimpleCursorAdapter adapter = null;
@@ -39,7 +58,131 @@ public class CartActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
+        TextView tv = (TextView) findViewById(R.id.testTotal);
+
+        //another layout button
+        inflater = getLayoutInflater();
+        header = inflater.inflate(R.layout.my_cart_list, null);
+
+        //delete - not working :(
+        ImageButton deleteCart = (ImageButton) header.findViewById(R.id.cartDelete);
+        deleteCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Cursor dc = db.rawQuery("UPDATE " + dbHelper.TABLE_NAME + " SET " + dbHelper.COL_CATEGORY + " = 'N' WHERE " + dbHelper.COL_CATEGORY + " = 'C'", null);
+                Log.i("test", dc + "");
+
+                SimpleCursorAdapter adapter = null;
+                adapter = new SimpleCursorAdapter(listView.getContext(), R.layout.my_cart_list, dc, strs, ints, 0);
+                listView.setAdapter(adapter);
+                Log.i("test", "test");
+
+
+
+            }
+        });
+
+
+        //How to
+        Button howBtn = (Button) findViewById(R.id.howto);
+        howBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+
+                builder.setTitle("How to use");
+                builder.setMessage("It is a Cart page. If you want to check total price, touch Total button, and touch payment to process the payment");
+                builder.setPositiveButton("Thanks", null);
+
+                builder.create().show();
+
+            }
+
+
+        });
+
+
+
+        //fragment connect
+        cartTotalFragment = new CartTotalFragment();
+
+        Button button = (Button) findViewById(R.id.total);
+        button.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("Range")
+            @Override
+            public void onClick(View view) {
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
+
+                Cursor cursor = db.rawQuery("SELECT SUM(" + dbHelper.COL_PRICE + ") as Total FROM " + dbHelper.TABLE_NAME + " WHERE Type='C' ", null);
+
+                if (cursor.moveToFirst()) {
+
+                    int total = cursor.getInt(cursor.getColumnIndex("Total"));
+
+                    Log.i("test", cursor.getColumnIndex("Total") + "");
+                    Log.i("test", total + "");
+
+
+                    tv.setText("" + total);
+                }
+
+
+            }
+
+
+        });
+
     }
+
+    public void onChangeFragment(int index) {
+        if (index == 0) {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.cartTotalFragmentSpace, cartTotalFragment).commit();
+        }
+
+
+    }
+
+    private class CustomAdapter extends ArrayAdapter<String> {
+        private ArrayList<String> items;
+
+        public CustomAdapter(Context context, int textViewResourceId, ArrayList<String> objects) {
+            super(context, textViewResourceId, objects);
+            this.items = objects;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = convertView;
+            if (v == null) {
+                LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = vi.inflate(R.layout.my_cart_list, null);
+            }
+
+            //ImageView imageView = (ImageView)v.findViewById(R.id.cartImg);
+            TextView textView = (TextView)v.findViewById(R.id.cartText);
+            textView.setText(items.get(position));
+
+            final String text = items.get(position);
+
+//            //delete
+//            ImageButton deleteCart = (ImageButton) findViewById(R.id.cartDelete);
+//            deleteCart.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Toast.makeText(getApplicationContext(),"Home Button",Toast.LENGTH_LONG).show();// display the toast on home button click
+//
+//                }
+//            });
+
+
+            return v;
+        }
+
+    }
+
 }
 
 /**package com.cst2335.ticketmaster;
