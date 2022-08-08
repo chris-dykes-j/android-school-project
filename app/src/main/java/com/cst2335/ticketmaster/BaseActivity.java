@@ -120,6 +120,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
+    /**
+     * Creates an alert displaying all of the features in our beautiful application.
+     */
     private void aboutAlert() {
         AlertDialog.Builder build = new AlertDialog.Builder(this);
         build.setTitle(R.string.dialog_title)

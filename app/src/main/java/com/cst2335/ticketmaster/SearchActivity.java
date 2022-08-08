@@ -26,10 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-// TODO
-// The top navigation layout should have the Activity’s title, author, and version number
-// JavaDoc comments
-
 /**
  * Activity to search for various Ticket Master Events.
  */
@@ -40,6 +36,10 @@ public class SearchActivity extends BaseActivity {
     private EventAdapter adapter;
     private final static String PREVIOUS_SEARCH = "Search Data";
 
+    /**
+     * Creates the SearchActivity.
+     * @param savedInstanceState Bundle needed for onCreate, idk what this is.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +97,12 @@ public class SearchActivity extends BaseActivity {
         searchQuery.setText(previous);
     }
 
+    /**
+     * Parses the incoming JSON from the ticketmaster api.
+     * @param input Result of the api fetch.
+     * @return ArrayList of events
+     * @throws JSONException Just in case JSON parsing goes wrong.
+     */
     private ArrayList<Events> parseJson(String input) throws JSONException {
         ArrayList<Events> events = new ArrayList<>();
         if (!input.isEmpty()) {
@@ -157,7 +163,9 @@ public class SearchActivity extends BaseActivity {
         return events;
     }
 
-    // I like inner classes.
+    /**
+     * The AsyncTask for searching events. I like inner classes
+     */
     private class EventSearch extends AsyncTask<String, Integer, String> {
         private final String strUrl;
         private String receive;
@@ -167,13 +175,20 @@ public class SearchActivity extends BaseActivity {
             this.strUrl = strUrl;
         }
 
+        /**
+         * Before execution...
+         */
         protected void onPreExecute() {
             super.onPreExecute();
             progress.setMax(100);
             progress.setVisibility(View.VISIBLE);
         }
 
-        // Get the JSON
+        /**
+         * Gets the JSON, as a String
+         * @param args String arguments
+         * @return Result JSON as a String.
+         */
         protected String doInBackground(String... args) {
             URL url;
             try {
@@ -197,12 +212,19 @@ public class SearchActivity extends BaseActivity {
             return receive;
         }
 
+        /**
+         * Updates the progress bar.
+         * @param values Values used to update progress bar.
+         */
         protected void onProgressUpdate(Integer ... values) {
             super.onProgressUpdate(values[0]);
             progress.setVisibility(values[0]);
         }
 
-        // Parse the JSON and make visible
+        /**
+         * Parses the JSON and make's it usable.
+         * @param result Result of api fetch.
+         */
         protected void onPostExecute(String result) {
             try {
                 eventList = parseJson(result);
@@ -218,6 +240,13 @@ public class SearchActivity extends BaseActivity {
      */
     private class EventAdapter extends BaseAdapter {
 
+        /**
+         * Gets view for each event.
+         * @param position Position of the event in the list.
+         * @param convertView The event view I think??
+         * @param parent Group of views.
+         * @return The view for the event.
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
@@ -230,16 +259,30 @@ public class SearchActivity extends BaseActivity {
             return view;
         }
 
+        /**
+         * Gets size of the event list.
+         * @return integer value of list size.
+         */
         @Override
         public int getCount() {
             return eventList.size();
         }
 
+        /**
+         * Gets an item from the event given a position value.
+         * @param pos Position in list of the event
+         * @return Event item.
+         */
         @Override
         public Object getItem(int pos) {
             return eventList.get(pos);
         }
 
+        /**
+         * Gets the item's id.
+         * @param pos position of item.
+         * @return Event id.
+         */
         @Override
         public long getItemId(int pos) {
             return (long) pos;
