@@ -62,7 +62,7 @@ public class BC_EventDetailActivity extends AppCompatActivity implements Navigat
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //
+
 
         String eName;
         String eStatus;
@@ -72,7 +72,7 @@ public class BC_EventDetailActivity extends AppCompatActivity implements Navigat
         String eMaxPrice;
         String eImgUrl;
 
-
+        // Fetch data from database, set these into detail page.
         myOpener = new BC_MyOpenHelper(this);
         theDatabase = myOpener.getWritableDatabase();
 
@@ -117,7 +117,9 @@ public class BC_EventDetailActivity extends AppCompatActivity implements Navigat
         SharedPreferences prefs = getSharedPreferences(BC_EventDetailActivity.PREFERENCES_FILE, MODE_PRIVATE);
         String previous = prefs.getString("ticketQuantity", "");
         ticketQuantity.setText(previous);
-
+        /**
+         * Add event item into star list.
+         */
         btn_addStar.setOnClickListener(click-> {
 
             //insert into database:
@@ -137,7 +139,9 @@ public class BC_EventDetailActivity extends AppCompatActivity implements Navigat
 
         });
 
-
+        /**
+         * Buy an ticket and save the ticket quantity into sharePreference.
+         */
         btn_buy.setOnClickListener(click->{
 
             Snackbar mySnackBar = Snackbar.make(btn_buy, "Confirm to purchase " + ticketQuantity.getText() + " ticket(s)?", Snackbar.LENGTH_LONG);
