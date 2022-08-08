@@ -57,6 +57,7 @@ public class CartActivity extends AppCompatActivity {
         adapter = new SimpleCursorAdapter(listView.getContext(), R.layout.my_cart_list, c, strs, ints, 0);
 
         listView.setAdapter(adapter);
+
         TextView tv = (TextView) findViewById(R.id.testTotal);
 
         //another layout button
@@ -71,6 +72,12 @@ public class CartActivity extends AppCompatActivity {
 
                 Cursor dc = db.rawQuery("UPDATE " + dbHelper.TABLE_NAME + " SET " + dbHelper.COL_CATEGORY + " = 'N' WHERE " + dbHelper.COL_CATEGORY + " = 'C'", null);
                 Log.i("test", dc + "");
+
+                SimpleCursorAdapter adapter = null;
+                adapter = new SimpleCursorAdapter(listView.getContext(), R.layout.my_cart_list, dc, strs, ints, 0);
+                listView.setAdapter(adapter);
+                Log.i("test", "test");
+
 
 
             }
@@ -160,15 +167,15 @@ public class CartActivity extends AppCompatActivity {
 
             final String text = items.get(position);
 
-            //delete
-            ImageButton deleteCart = (ImageButton) findViewById(R.id.cartDelete);
-            deleteCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(),"Home Button",Toast.LENGTH_LONG).show();// display the toast on home button click
-
-                }
-            });
+//            //delete
+//            ImageButton deleteCart = (ImageButton) findViewById(R.id.cartDelete);
+//            deleteCart.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Toast.makeText(getApplicationContext(),"Home Button",Toast.LENGTH_LONG).show();// display the toast on home button click
+//
+//                }
+//            });
 
 
             return v;
