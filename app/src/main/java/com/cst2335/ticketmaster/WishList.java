@@ -144,7 +144,6 @@ public class WishList extends BaseActivity {
                 .setPositiveButton(getString(R.string.alertYes), (dialog, which) -> {
                     modifyEvent(database, event, type, isActive);
 
-//                    eventSnack(database, event);
                 });
         build.show();
     }
@@ -160,7 +159,8 @@ public class WishList extends BaseActivity {
         db.update(helper.TABLE_NAME, args, String.format("%s = ?", "_id"),
                 new String[]{event.getId()});
         cursor = db.rawQuery("SELECT * FROM " + helper.TABLE_NAME + " ORDER BY _id DESC;", null);
-        this.printCursor(cursor, db.getVersion());
+//        this.printCursor(cursor, db.getVersion());
+        cursor.close();
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());

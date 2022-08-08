@@ -26,12 +26,9 @@ public class WishFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String MYSUBCITY = "mySubCity";
     private static final String MYSUBTYPE = "mySubType";
-    private static final String MYPREFER = "myPrefer";
     // TODO: Rename and change types of parameters
     private String mySubCity;
     private String mySubType;
-    private ImageView imageView;
-    private TextView textView;
     private View newView;
     RecyclerView rView;
     SharedPreferences sp;
@@ -63,13 +60,13 @@ public class WishFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
 
-        Log.i("mySubCity : ", mySubCity);
-        Log.i("mySubType : ", mySubType);
+//        Log.i("mySubCity : ", mySubCity);
+//        Log.i("mySubType : ", mySubType);
 
         try {
 
             String resultText = new WishTask().execute("keyword=" + mySubType).get();
-            Log.i("test", "GOOOD!!");
+//            Log.i("test", "GOOOD!!");
 
             String name = null;
             String type = null;
@@ -89,9 +86,6 @@ public class WishFragment extends Fragment {
 
                     name = jObject.optString("name");
                     imgUrl = jObject.optJSONArray("images").optJSONObject(0).optString("url");
-//                    startDate = jObject.optJSONObject("dates").optJSONObject("start").optString("localDate");
-//                    status = jObject.optJSONObject("dates").optJSONObject("status").optString("code");
-//                    city = jObject.optJSONObject("_embedded").optJSONArray("venues").optJSONObject(0).optJSONObject("city").optString("name");
                     events.add(new Events(name, type, id, url, imgUrl, startDate, status, city));
                     Log.i("LOOP", name + "/" + type + "/" + id + "/" + url + "/" + imgUrl + "/" + startDate + "/" + status + "/" + city);
                 }
