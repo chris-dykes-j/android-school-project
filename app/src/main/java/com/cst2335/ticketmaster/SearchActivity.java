@@ -15,8 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,8 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-// Need Progress Bar (from Di)
-
+// TODO
 // The top navigation layout should have the Activity’s title, author, and version number
 // JavaDoc comments
 
@@ -68,7 +65,7 @@ public class SearchActivity extends BaseActivity {
         searchButton.setOnClickListener(view -> {
             try {
                 String keyWord = searchQuery.getText().toString();
-                String searchResult = "";
+                String searchResult;
                 if (!keyWord.equals(""))
                     searchResult = new EventSearch("https://app.ticketmaster.com/discovery/v2/events.json?apikey=LJclKZ6rnChg9m4ZwZ3BfUlfOHD69Ekb&keyword=" + keyWord).execute().get();
                 else {
@@ -164,17 +161,17 @@ public class SearchActivity extends BaseActivity {
     private class EventSearch extends AsyncTask<String, Integer, String> {
         private final String strUrl;
         private String receive;
-//        ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
+        ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
 
         EventSearch(String strUrl) {
             this.strUrl = strUrl;
         }
 
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            progress.setMax(100);
-//            progress.setVisibility(View.VISIBLE);
-//        }
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress.setMax(100);
+            progress.setVisibility(View.VISIBLE);
+        }
 
         // Get the JSON
         protected String doInBackground(String... args) {
@@ -201,22 +198,24 @@ public class SearchActivity extends BaseActivity {
         }
 
         protected void onProgressUpdate(Integer ... values) {
-//            super.onProgressUpdate(values[0]);
-//            progress.setVisibility(values[0]);
+            super.onProgressUpdate(values[0]);
+            progress.setVisibility(values[0]);
         }
 
         // Parse the JSON and make visible
         protected void onPostExecute(String result) {
             try {
                 eventList = parseJson(result);
-//                progress.setVisibility(View.GONE);
+                progress.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    // Leaving this here so that the activities don't get too crowded.
+    /**
+     * Adapter for search activity. Deals with the list of events found.
+     */
     private class EventAdapter extends BaseAdapter {
 
         @Override

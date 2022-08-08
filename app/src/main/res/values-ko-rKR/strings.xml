@@ -69,5 +69,9 @@
     <string name="buyBtn">구매</string>
     <string name="eventTitle">이벤트</string>
     <string name="helpMessage"> 이벤트 검색, 카테고리별로 브라우징,그리고 이벤트를 위시리스트와 카트에 추가하세요!</string>
+    <string name="chris">이벤트 검색 - 크리스 V1</string>
+    <string name="jeongmi">위시리스트 - 정미 V1</string>
+    <string name="taeyeon">카트  - 태연 V1</string>
+    <string name="di">카테고리 브라우징 - 린디 V1</string>
     <string name="subList_title">좋아할만한 이벤트</string>
 </resources>
