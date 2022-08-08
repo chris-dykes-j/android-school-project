@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 // TODO
-// Need to fix progress bar
 // The top navigation layout should have the Activity’s title, author, and version number
 // JavaDoc comments
 
@@ -162,17 +161,17 @@ public class SearchActivity extends BaseActivity {
     private class EventSearch extends AsyncTask<String, Integer, String> {
         private final String strUrl;
         private String receive;
-//        ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
+        ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
 
         EventSearch(String strUrl) {
             this.strUrl = strUrl;
         }
 
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            progress.setMax(100);
-//            progress.setVisibility(View.VISIBLE);
-//        }
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress.setMax(100);
+            progress.setVisibility(View.VISIBLE);
+        }
 
         // Get the JSON
         protected String doInBackground(String... args) {
@@ -199,15 +198,15 @@ public class SearchActivity extends BaseActivity {
         }
 
         protected void onProgressUpdate(Integer ... values) {
-//            super.onProgressUpdate(values[0]);
-//            progress.setVisibility(values[0]);
+            super.onProgressUpdate(values[0]);
+            progress.setVisibility(values[0]);
         }
 
         // Parse the JSON and make visible
         protected void onPostExecute(String result) {
             try {
                 eventList = parseJson(result);
-//                progress.setVisibility(View.GONE);
+                progress.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -218,7 +217,7 @@ public class SearchActivity extends BaseActivity {
      * Adapter for search activity. Deals with the list of events found.
      */
     private class EventAdapter extends BaseAdapter {
-        
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
