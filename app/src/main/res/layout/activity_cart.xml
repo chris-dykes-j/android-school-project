@@ -38,15 +38,8 @@
 
         <ListView
             android:id="@+id/cartList"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_height="300dp" />
-
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="삭제"
-            android:id="@+id/cartDelete"/>
 
     </LinearLayout>
 
@@ -61,6 +54,7 @@
             android:layout_height="wrap_content"
             android:text="Total "
             android:id="@+id/total"/>
+
 
 
     </LinearLayout>

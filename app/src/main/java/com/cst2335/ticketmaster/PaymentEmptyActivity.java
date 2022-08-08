@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class PaymentEmptyActivity  extends AppCompatActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState,  PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.cart_payment);
     }
 }

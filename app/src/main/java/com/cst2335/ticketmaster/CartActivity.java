@@ -4,35 +4,43 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CartActivity extends AppCompatActivity {
-
-
 
     EventOpener dbHelper;
     SQLiteDatabase db = null;
     CartTotalFragment cartTotalFragment;
-    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        // Cart List
         ListView listView = (ListView) findViewById(R.id.cartList);
 
         dbHelper = new EventOpener(this);
@@ -48,7 +56,10 @@ public class CartActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
         TextView tv = (TextView) findViewById(R.id.testTotal);
-        tv.setTextSize(15);
+
+        //delete
+
+
 
 
         //How to
@@ -115,6 +126,41 @@ public class CartActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private class CustomAdapter extends ArrayAdapter<String> {
+        private ArrayList<String> items;
+
+        public CustomAdapter(Context context, int textViewResourceId, ArrayList<String> objects) {
+            super(context, textViewResourceId, objects);
+            this.items = objects;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = convertView;
+            if (v == null) {
+                LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = vi.inflate(R.layout.my_cart_list, null);
+            }
+
+            //ImageView imageView = (ImageView)v.findViewById(R.id.cartImg);
+            TextView textView = (TextView)v.findViewById(R.id.cartText);
+            textView.setText(items.get(position));
+
+            final String text = items.get(position);
+
+            ImageButton deleteCart = (ImageButton) findViewById(R.id.cartDelete);
+            deleteCart.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"Home Button",Toast.LENGTH_LONG).show();// display the toast on home button click
+
+                }
+            });
+
+            return v;
+        }
     }
 
 }
