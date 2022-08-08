@@ -43,8 +43,7 @@ public class BrowseCateActivity extends AppCompatActivity implements NavigationV
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //
-
+        //For changing categories
         Button caBTN = findViewById(R.id.caButton);
         caBTN.setOnClickListener(click -> {
 
@@ -94,6 +93,11 @@ public class BrowseCateActivity extends AppCompatActivity implements NavigationV
 
     }
 
+    /**
+     * This method is used to create two help buttons
+     * @param item menu item
+     * @return return help menu items
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

@@ -59,6 +59,13 @@ public class BC_DetailsFragment extends Fragment {
         }
     }
 
+    /**
+     * This method is used to create the item list, from a fragment object.
+     * @param inflater LayoutInflater
+     * @param parent parent view
+     * @param savedInstanceState saved Instance State
+     * @returnv fragment list view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, parent, false);
@@ -87,7 +94,7 @@ public class BC_DetailsFragment extends Fragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
+        // start an event detail page from a list item
         cityEventsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -132,6 +139,9 @@ public class BC_DetailsFragment extends Fragment {
 
     }
 
+    /**
+     * Create list adapter.
+     */
     private class ListAdapter extends BaseAdapter {
 
         @Override
@@ -162,6 +172,12 @@ public class BC_DetailsFragment extends Fragment {
         }
     }
 
+    /**
+     * Create an array list to store all events info.
+     * @param jsonString Passing from JSON Parser
+     * @param tickets an event object
+     * @return one event object
+     */
     public ArrayList listjsonParser(String jsonString, ArrayList<BC_Events> tickets) {
 
         String name = null;
@@ -221,6 +237,9 @@ public class BC_DetailsFragment extends Fragment {
         return tickets;
     }
 
+    /**
+     * Use AsyncTask to retrieve list data.
+     */
     class ListTask extends AsyncTask<String, Integer, String> {
         private String str, receiveMsg;
 
@@ -291,6 +310,9 @@ public class BC_DetailsFragment extends Fragment {
         }
     }
 
+    /**
+     * Use AsyncTask to retrieve image of event.
+     */
     public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
@@ -316,6 +338,9 @@ public class BC_DetailsFragment extends Fragment {
         }
     }
 
+    /**
+     * Event class.
+     */
     public class BC_Events {
         private String name;
         private String type;
