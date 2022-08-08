@@ -34,6 +34,8 @@ public class CartActivity extends AppCompatActivity {
     EventOpener dbHelper;
     SQLiteDatabase db = null;
     CartTotalFragment cartTotalFragment;
+    private LayoutInflater inflater;
+    private View header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +59,22 @@ public class CartActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         TextView tv = (TextView) findViewById(R.id.testTotal);
 
-        //delete
+        //another layout button
+        inflater = getLayoutInflater();
+        header = inflater.inflate(R.layout.my_cart_list, null);
+
+        //delete - not working :(
+        ImageButton deleteCart = (ImageButton) header.findViewById(R.id.cartDelete);
+        deleteCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Cursor dc = db.rawQuery("UPDATE " + dbHelper.TABLE_NAME + " SET " + dbHelper.COL_CATEGORY + " = 'N' WHERE " + dbHelper.COL_CATEGORY + " = 'C'", null);
+                Log.i("test", dc + "");
 
 
+            }
+        });
 
 
         //How to
@@ -113,10 +128,6 @@ public class CartActivity extends AppCompatActivity {
 
         });
 
-
-
-
-
     }
 
     public void onChangeFragment(int index) {
@@ -149,9 +160,9 @@ public class CartActivity extends AppCompatActivity {
 
             final String text = items.get(position);
 
+            //delete
             ImageButton deleteCart = (ImageButton) findViewById(R.id.cartDelete);
             deleteCart.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getApplicationContext(),"Home Button",Toast.LENGTH_LONG).show();// display the toast on home button click
@@ -159,8 +170,10 @@ public class CartActivity extends AppCompatActivity {
                 }
             });
 
+
             return v;
         }
+
     }
 
 }
