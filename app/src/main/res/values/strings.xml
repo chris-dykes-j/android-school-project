@@ -71,4 +71,6 @@
     <string name="buyBtn">BUY</string>
     <string name="eventTitle">Event</string>
     <string name="helpMessage">Search for various events, browse by category, and add events to your wish list or cart!</string>
+
+    <string name="subList_title">Recommendation for just you</string>
 </resources>

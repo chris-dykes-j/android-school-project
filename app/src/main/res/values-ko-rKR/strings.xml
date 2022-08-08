@@ -68,4 +68,6 @@
     <string name="backBtn">돌아가기</string>
     <string name="buyBtn">구매</string>
     <string name="eventTitle">이벤트</string>
+    <string name="helpMessage"> 이벤트 검색, 카테고리별로 브라우징,그리고 이벤트를 위시리스트와 카트에 추가하세요!</string>
+    <string name="subList_title">좋아할만한 이벤트</string>
 </resources>
