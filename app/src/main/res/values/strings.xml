@@ -2,7 +2,7 @@
     <string name="app_name">Ticket Master</string>
     <string name="wish_title">My Wish List</string>
     <string name="searchInput">Search events</string>
-    <string name="searchTitle">Event Search - Chris Dykes V1</string>
+    <string name="searchTitle">Event Search</string>
     <string name="caBTN">Canada</string>
     <string name="usBTN">US</string>
     <string name="cart_title">Cart Activity</string>
@@ -71,4 +71,8 @@
     <string name="buyBtn">BUY</string>
     <string name="eventTitle">Event</string>
     <string name="helpMessage">Search for various events, browse by category, and add events to your wish list or cart!</string>
+    <string name="chris">Event Search - Chris V1</string>
+    <string name="jeongmi">Wish List - Jeong Mi V1</string>
+    <string name="taeyeon">Cart Activity - Taeyeon V1</string>
+    <string name="di">Browse Categories - Di V1</string>
 </resources>
