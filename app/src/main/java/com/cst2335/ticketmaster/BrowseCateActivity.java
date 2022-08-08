@@ -140,12 +140,27 @@ public class BrowseCateActivity extends AppCompatActivity implements NavigationV
             case R.id.navCategories:
                 startActivity(new Intent(this, BrowseCateActivity.class));
                 break;
+            case R.id.navHome:
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+            case R.id.navAbout:
+                aboutAlert();
+                break;
         }
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return false;
+    }
+
+    private void aboutAlert() {
+        AlertDialog.Builder build = new AlertDialog.Builder(this);
+        build.setTitle(R.string.dialog_title)
+                .setMessage(R.string.helpMessage)
+                .setNegativeButton(R.string.alert_cancel, (dialog, click1)->{ })
+                .setPositiveButton(R.string.alert_confirm, (dialog, click2)->{ })
+                .create().show();
     }
 
 
