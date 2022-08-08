@@ -23,6 +23,10 @@ public class SearchEventActivity extends BaseActivity {
     private static final String TAG = "SearchEventActivity";
     private static final String TABLE_NAME = "Events";
 
+    /**
+     * Creates the SearchEventActivity.
+     * @param savedInstanceState Bundle needed for onCreate, idk what this is.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,12 @@ public class SearchEventActivity extends BaseActivity {
         cart.setOnClickListener(v -> eventAlert(database, event, "C"));
     }
 
+    /**
+     * Adds Event to the events table.
+     * @param database Database with table.
+     * @param event Event to be added.
+     * @param type Type of event being added.
+     */
     private void addEvent(SQLiteDatabase database, Events event, String type) {
         ContentValues cv = new ContentValues();
         cv.put(EventOpener.COL_NAME, event.getName());
@@ -68,6 +78,12 @@ public class SearchEventActivity extends BaseActivity {
         database.insert(TABLE_NAME, "NullColumn", cv);
     }
 
+    /**
+     * Alert dialogue for adding events to the database.
+     * @param database Database with table.
+     * @param event Event to be added.
+     * @param type Type of event being added.
+     */
     private void eventAlert(SQLiteDatabase database, Events event, String type) {
         AlertDialog.Builder build = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.searchAlert))
@@ -80,6 +96,11 @@ public class SearchEventActivity extends BaseActivity {
         build.show();
     }
 
+    /**
+     * Creates a snackbar for when the event is added. Can undo adding event.
+     * @param database Database with table.
+     * @param event Event to be removed if user clicks undo.
+     */
     private void eventSnack(SQLiteDatabase database, Events event) {
         Snackbar snack = Snackbar.make(findViewById(R.id.eventActivity), R.string.searchSnack, Snackbar.LENGTH_LONG)
                 .setAction(R.string.searchUndo, e -> {
