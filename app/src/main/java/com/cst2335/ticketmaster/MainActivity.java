@@ -5,9 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+/**
+ * Main activity for our application.
+ */
 public class MainActivity extends BaseActivity {
     ImageButton btn1,btn2,btn3,btn4;
 
+    /**
+     * Creates the main activity.
+     * @param savedInstanceState Bundle needed for onCreate.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
