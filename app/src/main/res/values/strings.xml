@@ -75,4 +75,5 @@
     <string name="jeongmi">Wish List - Jeong Mi V1</string>
     <string name="taeyeon">Cart Activity - Taeyeon V1</string>
     <string name="di">Browse Categories - Di V1</string>
+    <string name="subList_title">Recommendation for just you</string>
 </resources>
