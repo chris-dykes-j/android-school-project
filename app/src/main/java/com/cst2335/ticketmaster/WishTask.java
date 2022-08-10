@@ -9,10 +9,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * This is the async task class that connect the ticketmaster api
+ */
 // get attraction
 class WishTask extends AsyncTask<String, Integer, String> {
     private String str, receiveMsg;
 
+    /**
+     * This method will execute and fetch json data from ticketmaster api
+     * @param strings keyword
+     * @return Json String
+     */
     @Override
     protected String doInBackground(String... strings) {
 
@@ -51,14 +59,20 @@ class WishTask extends AsyncTask<String, Integer, String> {
         return receiveMsg;
     }
 
-
+    /**
+     * This method will not be used
+     * @param values values
+     */
     @Override
     protected void onProgressUpdate(Integer... values) {
 
         super.onProgressUpdate(values);
     }
 
-
+    /***
+     * This method will not be used
+     * @param s String
+     */
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);

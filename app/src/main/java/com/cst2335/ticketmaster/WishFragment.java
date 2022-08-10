@@ -19,6 +19,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * This WishFragment class is fragment class and extend Fragment.
+ *
+ */
 public class WishFragment extends Fragment {
     ArrayList<Events> events = new ArrayList<>();
     WishSubListAdapter wishSubrAdapter;
@@ -33,9 +37,16 @@ public class WishFragment extends Fragment {
     RecyclerView rView;
     SharedPreferences sp;
 
+    /**
+     * This no-arg constructor
+     */
     public WishFragment() {
     }
 
+    /**
+     * This method will retrieve bundle data
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +56,13 @@ public class WishFragment extends Fragment {
         }
     }
 
+    /**
+     * This method create view and display view
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +74,11 @@ public class WishFragment extends Fragment {
         return newView;
     }
 
+    /**
+     * this method will parse json data and add into event array list
+     * @param view view
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -102,23 +125,39 @@ public class WishFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    /**
+     * WishSubListAdapter extends Recycler view
+     */
     private class WishSubListAdapter extends RecyclerView.Adapter<SubViewHolder> {
-
+        /**
+         *
+         * @param parent parent
+         * @param viewType viewType
+         * @return return SubViewHolder
+         */
         @NonNull
         @Override
         public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater linear = getLayoutInflater();
             View view = linear.inflate(R.layout.my_sub_list, parent, false);
 
-            return new SubViewHolder(view);
+            return new SubViewHocomlder(view);
         }
 
-
+        /**
+         * This method return the number of event items
+         * @return event size
+         */
         @Override
         public int getItemCount() {
             return events.size();
         }
 
+        /**
+         *  This method set text and display image
+         * @param holder holder
+         * @param position position
+         */
         @Override
         public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
 
@@ -126,16 +165,23 @@ public class WishFragment extends Fragment {
             holder.mySubName.setText(thisEvent.getName());
             new DownloadImageTask((ImageView) holder.mySubImg)
                     .execute(thisEvent.getImgUrl());
-            Log.i("testtesting", thisEvent.getName() + "/" + thisEvent.getCity() + "/" + thisEvent.getStartDate());
+//            Log.i("testtesting", thisEvent.getName() + "/" + thisEvent.getCity() + "/" + thisEvent.getStartDate());
         }
 
 
     }
 
+    /**
+     * SubViewHolder extends RecyclerView
+     */
     public class SubViewHolder extends RecyclerView.ViewHolder {
         TextView mySubName;
         ImageView mySubImg;
 
+        /**
+         *  constructor for SubViewHolder
+         * @param itemView itemView
+         */
         public SubViewHolder(@NonNull View itemView) {
             super(itemView);
             mySubName = itemView.findViewById(R.id.mySubList_name);

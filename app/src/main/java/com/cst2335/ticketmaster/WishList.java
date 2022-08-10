@@ -27,6 +27,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * This class extends BaseActivity and display wishlist
+ */
 public class WishList extends BaseActivity {
     ArrayList<Events> events = new ArrayList<>();
     WishListAdapter wishListAdapter;
@@ -37,6 +40,10 @@ public class WishList extends BaseActivity {
     Bundle bundle;
     ProgressBar progressBar;
 
+    /**
+     *  This method create initial view for wish list
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("BaseActivity", "Testing");
@@ -89,28 +96,52 @@ public class WishList extends BaseActivity {
         });
     }
 
+    /**
+     *  WishListAdapter for listview
+     */
     class WishListAdapter extends BaseAdapter {
         View newView;
         TextView listName, listCity, listDate;
         ImageButton deleteButton, cartButton;
 
+        /**
+         * This method return event size
+         * @return the size of events array
+         */
         @Override
         public int getCount() {
             return events.size();
         }
 
+        /**
+         * This method return Item
+         * @param position position of item
+         * @return Event object
+         */
         @Override
         public Object getItem(int position) {
             return events.get(position);
         }
 
+        /**
+         * This method return Item Id
+         * @param position position of item
+         * @return event id
+         */
         @Override
         public long getItemId(int position) {
             return Long.parseLong(events.get(position).getId());
         }
 
+        /**
+         * This method return view
+         * @param position position of item
+         * @param convertView convertView
+         * @param parent parent
+         * @return View
+         */
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup  parent) {
 
             LayoutInflater inflater = getLayoutInflater();
             newView = inflater.inflate(R.layout.my_wish_list, parent, false);
@@ -136,6 +167,13 @@ public class WishList extends BaseActivity {
         }
     }
 
+    /**
+     *  This method display AlertDialog
+     * @param database database
+     * @param event event
+     * @param type type of event
+     * @param isActive status of event
+     */
     private void eventAlert(SQLiteDatabase database, Events event, String type, String isActive) {
         AlertDialog.Builder build = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.wishAlert))
@@ -148,6 +186,13 @@ public class WishList extends BaseActivity {
         build.show();
     }
 
+    /**
+     *  This method update event status
+     * @param database database
+     * @param event event
+     * @param type type of event
+     * @param isActive status of event
+     */
     private void modifyEvent(SQLiteDatabase database, Events event, String type, String isActive) {
         ContentValues args = new ContentValues();
         if (type.equals("C")) {
@@ -167,6 +212,11 @@ public class WishList extends BaseActivity {
         overridePendingTransition(0, 0);
     }
 
+    /**
+     * This method is to print the cursor
+     * @param c  cursor
+     * @param version database version
+     */
     public void printCursor(Cursor c, int version) {
         c.moveToFirst();
         // 1. The database version number, use db.getVersion() for the version number.
