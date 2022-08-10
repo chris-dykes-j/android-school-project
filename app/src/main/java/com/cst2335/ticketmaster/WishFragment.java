@@ -141,7 +141,7 @@ public class WishFragment extends Fragment {
             LayoutInflater linear = getLayoutInflater();
             View view = linear.inflate(R.layout.my_sub_list, parent, false);
 
-            return new SubViewHocomlder(view);
+            return new SubViewHolder(view);
         }
 
         /**
