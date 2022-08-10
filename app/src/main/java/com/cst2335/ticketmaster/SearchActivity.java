@@ -169,8 +169,12 @@ public class SearchActivity extends BaseActivity {
     private class EventSearch extends AsyncTask<String, Integer, String> {
         private final String strUrl;
         private String receive;
-        ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
+        ProgressBar progress = findViewById(R.id.progressBar);
 
+        /**
+         * Constructor for the EventSearch Async task.
+         * @param strUrl The ticket master api url.
+         */
         EventSearch(String strUrl) {
             this.strUrl = strUrl;
         }
@@ -180,7 +184,6 @@ public class SearchActivity extends BaseActivity {
          */
         protected void onPreExecute() {
             super.onPreExecute();
-            progress.setMax(100);
             progress.setVisibility(View.VISIBLE);
         }
 
@@ -213,13 +216,10 @@ public class SearchActivity extends BaseActivity {
         }
 
         /**
-         * Updates the progress bar.
+         * Updates the progress bar. Not being made use of.
          * @param values Values used to update progress bar.
          */
-        protected void onProgressUpdate(Integer ... values) {
-            super.onProgressUpdate(values[0]);
-            progress.setVisibility(values[0]);
-        }
+        protected void onProgressUpdate(Integer ... values) { }
 
         /**
          * Parses the JSON and make's it usable.
@@ -228,8 +228,9 @@ public class SearchActivity extends BaseActivity {
         protected void onPostExecute(String result) {
             try {
                 eventList = parseJson(result);
+                Thread.sleep(1000); // Just to show the progress bar. The api is too damn fast.
                 progress.setVisibility(View.GONE);
-            } catch (JSONException e) {
+            } catch (JSONException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
