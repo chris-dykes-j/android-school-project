@@ -75,8 +75,6 @@ public class StarListActivity extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //
-
         ListView starList = findViewById(R.id.starEventsList);
         starList.setAdapter(aListAdapter = new ListAdapter());
 
@@ -111,7 +109,9 @@ public class StarListActivity extends AppCompatActivity implements NavigationVie
             //add to arrayList:
             events.add(new Star_Events(eventID, eventName, eventImgUrl, eventStartDate, eventStatus, eventCity, eventMinPrice,  eventMaxPrice));
         }
-
+        /**
+         * go to star list.
+         */
         starList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
@@ -147,7 +147,14 @@ public class StarListActivity extends AppCompatActivity implements NavigationVie
 
         starList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
-
+            /**
+             * Response to delete one item from the star list.
+             * @param parent parent view
+             * @param view view
+             * @param i position of an item of a list
+             * @param id item id
+             * @return on click event
+             */
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long id) {
 
@@ -177,6 +184,9 @@ public class StarListActivity extends AppCompatActivity implements NavigationVie
 
     }
 
+    /**
+     * Create a list adapter.
+     */
     private class ListAdapter extends BaseAdapter {
 
         @Override
@@ -208,6 +218,9 @@ public class StarListActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
+    /**
+     * An object class
+     */
     public class Star_Events {
         private String name;
         private String id;
